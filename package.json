@@ -1,0 +1,13 @@
+{
+  "name": "SE_webpage",
+  "version": "1.0.0",
+  "description": "SE_webpage frontend project",
+  "main": "index.js",
+  "repository": "https://github.com/cocoapi/SE_webpage",
+  "author": "cocoapi <eksrns22tp@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "antd": "^3.3.0",
+    "react": "^16.2.0"
+  }
+}
