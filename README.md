@@ -4,6 +4,7 @@
 
 ## 1.시작하기
 [yarn 설치하기](https://yarnpkg.com/en/docs/install)<br/>
+[git 간편안내서](https://rogerdudler.github.io/git-guide/index.ko.html)<br/>
 ```
 git clone https://github.com/cocoapi/SE_webpage.git
 cd SE_webpage
