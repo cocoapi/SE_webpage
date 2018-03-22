@@ -1,7 +1,7 @@
-#2018학년도 1학기 소프트웨어 공학
+# 2018학년도 1학기 소프트웨어 공학
 
-##1.시작하기
-[https://yarnpkg.com/en/docs/install](yarn 설치하기)
+## 1.시작하기
+[yarn 설치하기](https://yarnpkg.com/en/docs/install)
 `yarn install`
 `yarn start`
 
