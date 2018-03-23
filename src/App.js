@@ -7,15 +7,17 @@ import Second from './components/second'
 class App extends Component {
   render() {
     return (
-		<div className="App">
+		<div className="App" style={{width: '1000px', height: '800px'}}>
 			<p> Hello, React! </p>
 			<div style={{
-				height: '20%',
+				width:'100%',
+				textAlign: 'center',
 			}}>
 				<First />
 			</div>
 			<div style={{
-				height: '20%',
+				width: '100%',
+				textAlign: 'center',
 			}}>
 			<Second />
 			</div>
