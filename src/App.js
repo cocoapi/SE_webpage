@@ -7,7 +7,7 @@ import Second from './components/second'
 class App extends Component {
   render() {
     return (
-		<div classname="App">
+		<div className="App">
 			<p> Hello, React! </p>
 			<div style={{
 				height: '20%',
