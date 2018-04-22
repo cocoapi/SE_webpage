@@ -23,5 +23,5 @@ yarn start
 * yarn start 명령어를 통해 script가 실행되고 있을 경우, 소스코드의 수정이 바로 반영되니, 작업시 [tmux](https://ko.wikipedia.org/wiki/Tmux)등을 이용해 별도의 shell, 혹은 세션에서 작업해주시기 바랍니다.
 
 ## 4.참고자료
-[React 강좌](https://velopert.com/775)
-[Ant Design](https://ant.design/)
+[React 강좌](https://velopert.com/775)  
+[Ant Design](https://ant.design/)  
