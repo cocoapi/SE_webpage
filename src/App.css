@@ -21,6 +21,7 @@
 .App-intro {
   font-size: large;
 }
+
 div {
 	border: 2px solid black;
 }
@@ -29,3 +30,5 @@ div {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@import "../node_modules/antd/dist/antd.css"

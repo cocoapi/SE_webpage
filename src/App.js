@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
+import Router from './Router'
 import Navi from './components/Navi';
-import List from './components/List';
-import Ads from './components/Ads';
 
 class App extends Component {
   render() {
     return (
-		<div className="App" style={{width: '100%', height: '1600px'}}>
-			<Navi />
-			<Ads />
-			<List />
-			<List />
-		</div>
+			<BrowserRouter>
+				<div className="App" style={{width: '100%', height: '1600px'}}>
+					<Navi />
+					<Router />
+				</div>
+			</BrowserRouter>
 	);
   }
 }
