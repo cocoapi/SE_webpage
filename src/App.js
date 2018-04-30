@@ -1,27 +1,18 @@
 import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import First from './components/first'
-import Second from './components/second'
-
+import Router from './Router'
+import Navi from './components/Navi';
 
 class App extends Component {
   render() {
     return (
-		<div className="App" style={{width: '1000px', height: '800px'}}>
-			<p> Hello, React! </p>
-			<div style={{
-				width:'100%',
-				textAlign: 'center',
-			}}>
-				<First />
-			</div>
-			<div style={{
-				width: '100%',
-				textAlign: 'center',
-			}}>
-			<Second />
-			</div>
-		</div>
+			<BrowserRouter>
+				<div className="App" style={{width: '100%', height: '1600px'}}>
+					<Navi />
+					<Router />
+				</div>
+			</BrowserRouter>
 	);
   }
 }

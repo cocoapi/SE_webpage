@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import First from './front'
-import Second from './second'
+import List from '../components/List';
+import Ads from '../components/Ads';
 
 class Front extends Component {
   render() {
     return (
       <div>
-		<p> Hello, React! </p>
-			<First />
-			<Second />
+		<Ads />
+		<List />
+		<List />
 	  </div>
     );
   }
