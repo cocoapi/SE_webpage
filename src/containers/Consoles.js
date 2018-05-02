@@ -16,7 +16,7 @@ class Consoles extends Component {
           <p> { this.state.consoleName } </p>
         </div>
         <Ads />
-        <List />
+        <List data={this.state.consoleName}/>
         <List />
 	    </div>
     );
