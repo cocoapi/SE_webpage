@@ -3,7 +3,7 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
 const FormItem = Form.Item;
 
-class LoginFrom extends Component {
+class Login extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -16,9 +16,6 @@ class LoginFrom extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <div style={{width:'100%', height:'800px', display:'flex', flexDirection:'row'}}>
-				<div style={{width:'30%'}}/>
-				<div style={{width:'40%'}}>
 					<Form onSubmit={this.handleSubmit} className="login-form">
 						<FormItem>
 							{getFieldDecorator('userName', {
@@ -41,20 +38,18 @@ class LoginFrom extends Component {
 							})(
 								<Checkbox>Remember me</Checkbox>
 							)}
-							<a className="login-form-forgot" href="">Forgot password</a>
-							<Button type="primary" htmlType="submit" className="login-form-button">
+							<Button size='large' type="primary" htmlType="submit" className="login-form-button">
 								Log in
-							</Button>
-							Or <a href="">register now!</a>
+							</Button> 
+							<br />
+							<a className="login-form-forgot" href="">Forgot password 	</a>
+							Or <a href="/Resistration">register now!</a>
 						</FormItem>
 					</Form>
-				</div>
-				<div style={{width:'30%'}} />
-			</div>
     );
   }
 }
 
-const Login = Form.create()(LoginFrom);
+const LoginFrom = Form.create()(Login);
 
-export default Login;
+export default LoginFrom;
