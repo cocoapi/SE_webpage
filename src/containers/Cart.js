@@ -19,7 +19,7 @@ class Cart extends Component {
   constructor(props){
     super(props);
     this.state = {
-      dataSource : {dataSource}
+      dataSource : dataSource,
     }
    this.onClickUpMethod = this.onClickUpMethod.bind(this);
    this.onClickDownMethod = this.onClickDownMethod.bind(this);
@@ -29,28 +29,31 @@ class Cart extends Component {
     if(dataSource[key-1].quantity>=9) return;
 
     dataSource[key-1].quantity++
-    this.setState({dataSource : {dataSource}})
+    this.setState({dataSource : dataSource})
   }
 
   onClickDownMethod(key) {
     if(dataSource[key-1].quantity<=1) return;
 
     dataSource[key-1].quantity--
-    this.setState({dataSource : {dataSource}})
+    this.setState({dataSource : dataSource})
+  }
+
+  truncCart(){
+    this.setState({dataSource: []});
   }
 
   render() {
     return (
-      <div style={{height:'1000px', display:'flex', flexDirection:'column', marginRight:'50px', marginLeft:'50px'}}>
+      <div style={{height:'1000px', display:'flex', flexDirection:'column'}}>
         <h2 style={{marginTop:'13px'}}>Shopping Cart</h2>
         <Table 
-          dataSource={this.state.dataSource.dataSource} 
+          dataSource={this.state.dataSource} 
           pagination={false}  
           footer= {() => { 
             let total = 0
-            dataSource.forEach((source) =>
+            this.state.dataSource.forEach((source) =>
             total += source.quantity * source.price)
-
             return <p style={{textAlign:'right'}}> 총 구매금액: {total.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}원</p>
           }}
         > 
@@ -87,16 +90,16 @@ class Cart extends Component {
             dataIndex= 'price'
             key= 'price'
             render= {(text, record) => {
-              let total_price = text * this.state.dataSource.dataSource[record.key-1].quantity
-              return <div>{total_price.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}원</div>
+              let total_price = text * this.state.dataSource[record.key-1].quantity
+              return <div style={{width: '100px'}}>{total_price.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}원</div>
             }}
           />
         </Table>
         
         <div style={{marginTop:'8px'}}>
-          <Button type='primary' style={{marginRight:'4px'}}>주문하기</Button>
+          <Button type='primary' href='/buy' style={{marginRight:'4px'}}>주문하기</Button>
           <Button style={{marginRight:'4px'}}>계속쇼핑하기</Button>
-          <Button>장바구니 비우기</Button>
+          <Button onClick={()=>this.truncCart()}>장바구니 비우기</Button>
         </div>
 	    </div>
     );
