@@ -245,9 +245,22 @@ const WrappedRegistrationForm = Form.create()(RegistrationForm);
 class Register extends Component {
   render() {
     return (
-      
-            <WrappedRegistrationForm />
-	   
+          <div style={{height:'1000px', display:'flex', flexDirection:'column'}}>
+            <div style={{height: '20%', display:'flex', flexDirection:'column', fontFamily: "Comic Sans MS" , fontsize: "30px", backgroundColor: 'LightGray'}}>
+              <div style={{height: '40%'}}/>
+              <div style={{height: '20%'}}>
+                <h1>Register</h1>
+              </div>
+              <div style={{height: '40%'}}/>
+            </div>
+            <div style={{height: '70%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
+              <div style={{width: '30%'}}/>
+              <div style={{width: '40%', border: '1px solid gray', padding: '40px'}}>
+                <WrappedRegistrationForm style={{border: '1px soid gray'}}/>
+              </div>
+            </div>
+	        </div>
+          
     );
   }
 }
