@@ -112,13 +112,13 @@ class RegistrationForm extends React.Component {
       <Form onSubmit={this.handleSubmit}>
         <FormItem
           {...formItemLayout}
-          label="E-mail"
+          label="이메일"
         >
           {getFieldDecorator('email', {
             rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
+              type: 'email', message: '존재하지 않는 이메일입니다.',
             }, {
-              required: true, message: 'Please input your E-mail!',
+              required: true, message: '이메일을 입력 해 주세요!',
             }],
           })(
             <Input />
@@ -126,11 +126,11 @@ class RegistrationForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Password"
+          label="비밀번호"
         >
           {getFieldDecorator('password', {
             rules: [{
-              required: true, message: 'Please input your password!',
+              required: true, message: '비밀번호를 입력 해 주세요!',
             }, {
               validator: this.validateToNextPassword,
             }],
@@ -140,11 +140,11 @@ class RegistrationForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Confirm Password"
+          label="비밀번호 확인"
         >
           {getFieldDecorator('confirm', {
             rules: [{
-              required: true, message: 'Please confirm your password!',
+              required: true, message: '비밀번호를 확인 해 주세요!',
             }, {
               validator: this.compareToFirstPassword,
             }],
@@ -156,83 +156,42 @@ class RegistrationForm extends React.Component {
           {...formItemLayout}
           label={(
             <span>
-              Nickname&nbsp;
-              <Tooltip title="What do you want others to call you?">
+              닉네임&nbsp;
+              <Tooltip title="다른 멤버가 뭐라고 부르길 희망하나요?">
                 <Icon type="question-circle-o" />
               </Tooltip>
             </span>
           )}
         >
           {getFieldDecorator('nickname', {
-            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+            rules: [{ required: true, message: '닉네임을 입력하세요!', whitespace: true }],
           })(
             <Input />
           )}
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Habitual Residence"
+          label="거주지"
         >
           {getFieldDecorator('residence', {
-            initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-            rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
+            initialValue: ['도', '시/군/구', '동'],
+            rules: [{ type: 'array', required: true, message: '거주지를 선택하세요!' }],
           })(
             <Cascader options={residences} />
           )}
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Phone Number"
+          label="전화번호"
         >
           {getFieldDecorator('phone', {
-            rules: [{ required: true, message: 'Please input your phone number!' }],
+            rules: [{ required: true, message: '전화번호를 입력하세요!' }],
           })(
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           )}
         </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Website"
-        >
-          {getFieldDecorator('website', {
-            rules: [{ required: true, message: 'Please input website!' }],
-          })(
-            <AutoComplete
-              dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
-              placeholder="website"
-            >
-              <Input />
-            </AutoComplete>
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Captcha"
-          extra="We must make sure that your are a human."
-        >
-          <Row gutter={8}>
-            <Col span={12}>
-              {getFieldDecorator('captcha', {
-                rules: [{ required: true, message: 'Please input the captcha you got!' }],
-              })(
-                <Input />
-              )}
-            </Col>
-            <Col span={12}>
-              <Button>Get captcha</Button>
-            </Col>
-          </Row>
-        </FormItem>
         <FormItem {...tailFormItemLayout}>
-          {getFieldDecorator('agreement', {
-            valuePropName: 'checked',
-          })(
-            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
-          )}
-        </FormItem>
-        <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">Register</Button>
+          <Button type="primary" htmlType="submit">회원가입</Button>
         </FormItem>
       </Form>
     );
@@ -249,11 +208,11 @@ class Register extends Component {
             <div style={{height: '20%', display:'flex', flexDirection:'column', fontFamily: "Comic Sans MS" , fontsize: "30px", backgroundColor: 'LightGray'}}>
               <div style={{height: '40%'}}/>
               <div style={{height: '20%'}}>
-                <h1>Register</h1>
+                <h1>회원가입</h1>
               </div>
               <div style={{height: '40%'}}/>
             </div>
-            <div style={{height: '70%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
+            <div style={{height: '50%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
               <div style={{width: '30%'}}/>
               <div style={{width: '40%', border: '1px solid gray', padding: '40px'}}>
                 <WrappedRegistrationForm style={{border: '1px soid gray'}}/>
