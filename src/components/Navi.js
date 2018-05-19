@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Icon } from 'antd';
 import { Link } from 'react-router-dom';
 
 class Navi extends Component {
@@ -24,6 +25,10 @@ class Navi extends Component {
   render() {
     return (
     <div style={{width:'100%', height:'250px',  display:'flex', flexDirection:'column'}}>
+		<div style={{width:'100%', height:'20px', padding:'0px 8px', background:'white', zIndex:'5', position:'fixed', top:'0px', textAlign:'right' }}>
+			<a style={{color:'black'}} href='/Login'> <Icon type='login'/>로그인 </a>
+			<a style={{color:'black'}} href='/Shopping_Cart'> <Icon type='shopping-cart'/>장바구니 </a>
+		</div>
 			<div style={{height:'200px', display:'flex', flexDirection:'row'}}>
 				<div style={{width:'33%'}}/>
 				<div style={{width:'33%', overflow:'hidden'}}>
@@ -43,7 +48,7 @@ class Navi extends Component {
 				</div>
 				</div>
 				:
-				<div style={{width: '100%', height:'50px', display:'flex', flexDirection:'row', position:'fixed', top:'0px',
+				<div style={{width: '100%', height:'50px', display:'flex', flexDirection:'row', position:'fixed', top:'20px',
 				background:'white', borderBottom:'1px solid black', zIndex:'5'}}>
 					<div style={{width:'33%', margin:'4px'}}>
 						<Link to={{ pathname: '/PlayStation', state: { consoleName: 'PS' }}}> PS4 </Link>
