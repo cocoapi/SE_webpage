@@ -1,4 +1,3 @@
-// eslint-enable-next-line
 import React, { Component } from 'react';
 import { Icon } from 'antd';
 import { Link } from 'react-router-dom';
@@ -16,7 +15,6 @@ class Navi extends Component {
 	componentWillUnmount() {
 		window.removeEventListener("scroll", this.onScroll);
 	}
-	// eslint-disable-next-line
 	onScroll = (e) => {
 		if (window.scrollY >= 200 && !this.state.sticky) {
 			this.setState({sticky: true});
@@ -37,7 +35,7 @@ class Navi extends Component {
 					<Link to="/"><img width='100%' src='https://www.kw.ac.kr/_res/ko/img/intro/symbol01_06.jpg' alt='Mark'/></Link>
 				</div>
 			</div>
-			{this.state.sticky == false ? 
+			{this.state.sticky === false ? 
 			<div style={{height:'50px', display:'flex', flexDirection:'row', borderBottom:'1px solid black'}} >
 				<div style={{width:'33%', margin:'4px'}}>
 					<Link to={{ pathname: '/PlayStation', state: { consoleName: 'PS' }}}> PS4 </Link>

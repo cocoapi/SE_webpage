@@ -50,6 +50,6 @@ class Login extends Component {
   }
 }
 
-const LoginFrom = Form.create()(Login);
+const LoginForm = Form.create()(Login);
 
-export default LoginFrom;
+export default LoginForm;

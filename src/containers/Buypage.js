@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
-import { LoginForm } from '../components/LoginForm';
+import LoginForm from '../components/LoginForm';
 
 class Buypage extends Component {
   render() {
