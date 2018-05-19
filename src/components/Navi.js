@@ -1,3 +1,4 @@
+// eslint-enable-next-line
 import React, { Component } from 'react';
 import { Icon } from 'antd';
 import { Link } from 'react-router-dom';
@@ -15,6 +16,7 @@ class Navi extends Component {
 	componentWillUnmount() {
 		window.removeEventListener("scroll", this.onScroll);
 	}
+	// eslint-disable-next-line
 	onScroll = (e) => {
 		if (window.scrollY >= 200 && !this.state.sticky) {
 			this.setState({sticky: true});
