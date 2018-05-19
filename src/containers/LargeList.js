@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import List from '../components/List';
-import Ads from '../components/Ads';
+import { Card } from 'antd';
 
-class Consoles extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      consoleName: props.location.state.consoleName,
+class List extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+          consoleName: props.location.state.consoleName,
+        }
     }
-  }
   render() {
     return (
-      <div style={{height:'1000px', display:'flex', flexDirection:'column'}}>
-		    <div style={{heigth:'100px'}} >
+    <div style={{ height:'1000px',  display:'flex', flexDirection:'column', padding:'12px' }}>
+		<div style={{heigth:'100px'}} >
           <p> { this.state.consoleName } </p>
         </div>
         <div style={{height:'100px'}}>
@@ -22,12 +21,10 @@ class Consoles extends Component {
             <Link to={{ pathname: '/ProductList', state: { consoleName: this.state.consoleName }}}> 타이틀 </Link>
           </p>
         </div>
-        <Ads />
-        <List data={this.state.consoleName}/>
-        <List />
-	    </div>
+        this is list for all products
+	</div>
     );
   }
 }
 
-export default Consoles;
+export default List;
