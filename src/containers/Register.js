@@ -1,38 +1,41 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Button, AutoComplete } from 'antd';
+import DaumPostcode from 'react-daum-postcode';
 const FormItem = Form.Item;
 const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
-
-const residences = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
-  children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
-    children: [{
-      value: 'xihu',
-      label: 'West Lake',
-    }],
-  }],
-}, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
-  children: [{
-    value: 'nanjing',
-    label: 'Nanjing',
-    children: [{
-      value: 'zhonghuamen',
-      label: 'Zhong Hua Men',
-    }],
-  }],
-}];
+//const AutoCompleteOption = AutoComplete.Option;
 
 class RegistrationForm extends React.Component {
-  state = {
-    confirmDirty: false,
-    autoCompleteResult: [],
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      confirmDirty: false,
+      autoCompleteResult: [],
+      clicked: false,
+      fulladdress: '',
+    }
+   this.callPost= this.callPost.bind(this);
+  }
+
+  getAddress = (data) => {
+    const addr = data.address;
+    this.setState({
+      fulladdress: addr,
+    });
+    console.log(this.state.fulladdress); 
+  }
+
+  callPost(){
+    this.state.clicked? 
+    this.setState({
+      clicked : false
+    })
+    :
+    this.setState({
+      clicked : true
+    });
+  }
+  
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -71,7 +74,7 @@ class RegistrationForm extends React.Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
+   // const { autoCompleteResult } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -104,9 +107,9 @@ class RegistrationForm extends React.Component {
       </Select>
     );
 
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
+    // const websiteOptions = autoCompleteResult.map(website => (
+    //   <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
+    // ));
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -169,7 +172,7 @@ class RegistrationForm extends React.Component {
             <Input />
           )}
         </FormItem>
-        <FormItem
+        <FormItem 
           {...formItemLayout}
           label="거주지"
         >
@@ -177,7 +180,17 @@ class RegistrationForm extends React.Component {
             initialValue: ['도', '시/군/구', '동'],
             rules: [{ type: 'array', required: true, message: '거주지를 선택하세요!' }],
           })(
-            <Cascader options={residences} />
+            <div onClick={this.callPost}>
+                  <Input value={this.state.fulladdress}></Input>
+                 
+                  {
+                    this.state.clicked ?
+                    <DaumPostcode
+                      onComplete={data => this.getAddress(data)}
+                      {...this.props}
+                      /> : null
+                  }
+            </div>
           )}
         </FormItem>
         <FormItem
@@ -194,9 +207,9 @@ class RegistrationForm extends React.Component {
           <Button type="primary" htmlType="submit">회원가입</Button>
         </FormItem>
       </Form>
-    );
+      );
+    }
   }
-}
 
 const WrappedRegistrationForm = Form.create()(RegistrationForm);
 
@@ -219,7 +232,6 @@ class Register extends Component {
               </div>
             </div>
 	        </div>
-          
     );
   }
 }

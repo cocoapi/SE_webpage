@@ -6072,6 +6072,13 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-daum-postcode@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/react-daum-postcode/-/react-daum-postcode-1.6.0.tgz#64b0b86f016164192700ee2782ce7336b0cbb35c"
+  dependencies:
+    prop-types "^15.6.1"
+    react "^16.3.2"
+
 react-dev-utils@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-5.0.1.tgz#1f396e161fe44b595db1b186a40067289bf06613"
