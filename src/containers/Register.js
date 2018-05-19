@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Icon, Select, Button } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 const FormItem = Form.Item;
 const Option = Select.Option;
-//const AutoCompleteOption = AutoComplete.Option;
 
 class RegistrationForm extends React.Component {
   constructor(props){
@@ -23,6 +22,7 @@ class RegistrationForm extends React.Component {
       fulladdress: addr,
     });
     console.log(this.state.fulladdress); 
+    this.residenceWarn();
   }
 
   callPost(){
@@ -51,7 +51,7 @@ class RegistrationForm extends React.Component {
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+      callback('패스워드가 일치하지 않습니다!');
     } else {
       callback();
     }
@@ -74,7 +74,6 @@ class RegistrationForm extends React.Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-   // const { autoCompleteResult } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -99,11 +98,12 @@ class RegistrationForm extends React.Component {
       },
     };
     const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '86',
+      initialValue: '010',
     })(
       <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
+        <Option value="010">010</Option>
+        <Option value="02">02</Option>
+        <Option value="031">031</Option>
       </Select>
     );
 
@@ -178,11 +178,11 @@ class RegistrationForm extends React.Component {
         >
           {getFieldDecorator('residence', {
             initialValue: ['도', '시/군/구', '동'],
-            rules: [{ type: 'array', required: true, message: '거주지를 선택하세요!' }],
+            rules: [{ type: 'string',required: true, message: '거주지를 선택하세요!' }],
           })(
             <div onClick={this.callPost}>
                   <Input value={this.state.fulladdress}></Input>
-                 
+                 <div style={{position:'absolute', zIndex:100}}>
                   {
                     this.state.clicked ?
                     <DaumPostcode
@@ -190,10 +190,21 @@ class RegistrationForm extends React.Component {
                       {...this.props}
                       /> : null
                   }
+                  </div>
             </div>
           )}
         </FormItem>
-        <FormItem
+        <FormItem 
+          {...formItemLayout}
+          label="상세주소"
+        >
+          {getFieldDecorator('residence2', {
+            rules: [{ required: true, message: '상세주소를 입력', whitespace: true }],
+          })(
+            <Input />
+          )}
+        </FormItem>
+        <FormItem 
           {...formItemLayout}
           label="전화번호"
         >
@@ -217,7 +228,7 @@ const WrappedRegistrationForm = Form.create()(RegistrationForm);
 class Register extends Component {
   render() {
     return (
-          <div style={{height:'1000px', display:'flex', flexDirection:'column'}}>
+          <div style={{height:'1000px', width:'100%', margin:'auto', display:'flex', flexDirection:'column'}}>
             <div style={{height: '20%', display:'flex', flexDirection:'column', fontFamily: "Comic Sans MS" , fontsize: "30px", backgroundColor: 'LightGray'}}>
               <div style={{height: '40%'}}/>
               <div style={{height: '20%'}}>
@@ -225,7 +236,7 @@ class Register extends Component {
               </div>
               <div style={{height: '40%'}}/>
             </div>
-            <div style={{height: '50%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
+            <div style={{height: '55%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
               <div style={{width: '30%'}}/>
               <div style={{width: '40%', border: '1px solid gray', padding: '40px'}}>
                 <WrappedRegistrationForm style={{border: '1px soid gray'}}/>
