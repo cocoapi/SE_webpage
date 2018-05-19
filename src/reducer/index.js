@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 
 const InitialState = {
   logged_in: false,
+  user : {},
   Cart: [],
 };
 

@@ -27,9 +27,9 @@ class Cart extends Component {
   }
 
   onClickUpMethod(key) {
-    if (dataSource[key - 1].quantity >= 9) return;
+    if (dataSource[key - 1].quantity >= 99) return;
 
-    dataSource[key - 1].quantity++;
+    dataSource[key - 1].quantity+1;
     this.setState({ dataSource });
   }
 
@@ -77,7 +77,7 @@ class Cart extends Component {
             render={(text, record) => (
               <div style={{ width: '60px', display: 'flex', flexDirection: 'row' }}>
                 <div style={{ width: '40px' }}>
-                  <Input size="default" value={text} readOnly />
+                  <Input size="default" value={text} />
                 </div>
                 <div style={{
  width: '20px', display: 'flex', flexDirection: 'column', marginLeft: '3px',
