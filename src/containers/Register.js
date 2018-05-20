@@ -107,10 +107,6 @@ class RegistrationForm extends React.Component {
       </Select>
     );
 
-    // const websiteOptions = autoCompleteResult.map(website => (
-    //   <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    // ));
-
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem
@@ -178,7 +174,7 @@ class RegistrationForm extends React.Component {
         >
           {getFieldDecorator('residence', {
             initialValue: ['도', '시/군/구', '동'],
-            rules: [{ type: 'string',required: true, message: '거주지를 선택하세요!' }],
+            rules: [{required: true, message: '거주지를 선택하세요!' }],
           })(
             <div onClick={this.callPost}>
                   <Input value={this.state.fulladdress}></Input>
@@ -187,6 +183,7 @@ class RegistrationForm extends React.Component {
                     this.state.clicked ?
                     <DaumPostcode
                       onComplete={data => this.getAddress(data)}
+                      autoClose="true"
                       {...this.props}
                       /> : null
                   }
