@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import { logout } from '../actions'
 
 class Navi extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			user: props.currentUser,
 			sticky: false,
 		}
 	}
 	componentDidMount() {
+		this.state.user.logged_in !== this.props.currentUser.logged_in ? this.props.currentUser
 		window.addEventListener("scroll", this.onScroll);	
 	}
 	componentWillUnmount() {
@@ -26,8 +30,19 @@ class Navi extends Component {
     return (
     <div style={{width:'100%', height:'250px',  display:'flex', flexDirection:'column'}}>
 		<div style={{width:'100%', height:'20px', padding:'0px 8px', background:'white', zIndex:'5', position:'fixed', top:'0px', textAlign:'right' }}>
-			<a style={{color:'black'}} href='/Login'> <Icon type='login'/>로그인 </a>
-			<a style={{color:'black'}} href='/Shopping_Cart'> <Icon type='shopping-cart'/>장바구니 </a>
+			{
+				this.state.user.logged_in !== this.props.currentUser.logged_in ?
+					this.setState({user: this.props.currentUser}) : null
+			}
+			{
+				this.state.user.logged_in ?
+				<Link style={{color:'black'}} to='/' onClick={ () => this.props.userLogout() }> 
+					<Icon type='logout'/>로그아웃 
+				</Link>
+				:
+				<Link style={{color:'black'}} to='/Login'> <Icon type='login'/>로그인 </Link>
+			}
+			<Link style={{color:'black'}} to='/Shopping_Cart'> <Icon type='shopping-cart'/>장바구니 </Link>
 		</div>
 			<div style={{height:'200px', display:'flex', flexDirection:'row'}}>
 				<div style={{width:'33%'}}/>
@@ -66,4 +81,10 @@ class Navi extends Component {
   }
 }
 
-export default Navi;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		userLogout: () => dispatch(logout())
+	};
+}
+
+export default connect(state => state, mapDispatchToProps)(Navi);

@@ -29,7 +29,7 @@ class Cart extends Component {
   onClickUpMethod(key) {
     if (dataSource[key - 1].quantity >= 99) return;
 
-    dataSource[key - 1].quantity+1;
+    dataSource[key - 1].quantity + 1;
     this.setState({ dataSource });
   }
 
