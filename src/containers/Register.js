@@ -1,38 +1,41 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Icon, Select, Button } from 'antd';
+import DaumPostcode from 'react-daum-postcode';
 const FormItem = Form.Item;
 const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
-
-const residences = [{
-  value: 'zhejiang',
-  label: 'Zhejiang',
-  children: [{
-    value: 'hangzhou',
-    label: 'Hangzhou',
-    children: [{
-      value: 'xihu',
-      label: 'West Lake',
-    }],
-  }],
-}, {
-  value: 'jiangsu',
-  label: 'Jiangsu',
-  children: [{
-    value: 'nanjing',
-    label: 'Nanjing',
-    children: [{
-      value: 'zhonghuamen',
-      label: 'Zhong Hua Men',
-    }],
-  }],
-}];
 
 class RegistrationForm extends React.Component {
-  state = {
-    confirmDirty: false,
-    autoCompleteResult: [],
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      confirmDirty: false,
+      autoCompleteResult: [],
+      clicked: false,
+      fulladdress: '',
+    }
+   this.callPost= this.callPost.bind(this);
+  }
+
+  getAddress = (data) => {
+    const addr = data.address;
+    this.setState({
+      fulladdress: addr,
+    });
+    console.log(this.state.fulladdress); 
+    this.residenceWarn();
+  }
+
+  callPost(){
+    this.state.clicked? 
+    this.setState({
+      clicked : false
+    })
+    :
+    this.setState({
+      clicked : true
+    });
+  }
+  
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -48,7 +51,7 @@ class RegistrationForm extends React.Component {
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+      callback('패스워드가 일치하지 않습니다!');
     } else {
       callback();
     }
@@ -71,7 +74,6 @@ class RegistrationForm extends React.Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -96,17 +98,14 @@ class RegistrationForm extends React.Component {
       },
     };
     const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '86',
+      initialValue: '010',
     })(
       <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
+        <Option value="010">010</Option>
+        <Option value="02">02</Option>
+        <Option value="031">031</Option>
       </Select>
     );
-
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -169,18 +168,40 @@ class RegistrationForm extends React.Component {
             <Input />
           )}
         </FormItem>
-        <FormItem
+        <FormItem 
           {...formItemLayout}
           label="거주지"
         >
           {getFieldDecorator('residence', {
             initialValue: ['도', '시/군/구', '동'],
-            rules: [{ type: 'array', required: true, message: '거주지를 선택하세요!' }],
+            rules: [{required: true, message: '거주지를 선택하세요!' }],
           })(
-            <Cascader options={residences} />
+            <div onClick={this.callPost}>
+                  <Input value={this.state.fulladdress}></Input>
+                 <div style={{position:'absolute', zIndex:100}}>
+                  {
+                    this.state.clicked ?
+                    <DaumPostcode
+                      onComplete={data => this.getAddress(data)}
+                      autoClose="true"
+                      {...this.props}
+                      /> : null
+                  }
+                  </div>
+            </div>
           )}
         </FormItem>
-        <FormItem
+        <FormItem 
+          {...formItemLayout}
+          label="상세주소"
+        >
+          {getFieldDecorator('residence2', {
+            rules: [{ required: true, message: '상세주소를 입력', whitespace: true }],
+          })(
+            <Input />
+          )}
+        </FormItem>
+        <FormItem 
           {...formItemLayout}
           label="전화번호"
         >
@@ -194,9 +215,9 @@ class RegistrationForm extends React.Component {
           <Button type="primary" htmlType="submit">회원가입</Button>
         </FormItem>
       </Form>
-    );
+      );
+    }
   }
-}
 
 const WrappedRegistrationForm = Form.create()(RegistrationForm);
 
@@ -204,7 +225,7 @@ const WrappedRegistrationForm = Form.create()(RegistrationForm);
 class Register extends Component {
   render() {
     return (
-          <div style={{height:'1000px', display:'flex', flexDirection:'column'}}>
+          <div style={{height:'1000px', width:'100%', margin:'auto', display:'flex', flexDirection:'column'}}>
             <div style={{height: '20%', display:'flex', flexDirection:'column', fontFamily: "Comic Sans MS" , fontsize: "30px", backgroundColor: 'LightGray'}}>
               <div style={{height: '40%'}}/>
               <div style={{height: '20%'}}>
@@ -212,14 +233,13 @@ class Register extends Component {
               </div>
               <div style={{height: '40%'}}/>
             </div>
-            <div style={{height: '50%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
+            <div style={{height: '55%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
               <div style={{width: '30%'}}/>
               <div style={{width: '40%', border: '1px solid gray', padding: '40px'}}>
                 <WrappedRegistrationForm style={{border: '1px soid gray'}}/>
               </div>
             </div>
 	        </div>
-          
     );
   }
 }
