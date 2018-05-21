@@ -13,8 +13,10 @@ class Navi extends Component {
 		}
 	}
 	componentDidMount() {
-		this.state.user.logged_in !== this.props.currentUser.logged_in ? this.props.currentUser
 		window.addEventListener("scroll", this.onScroll);	
+	}
+	componentWillReceiveProps(nextProps){
+		this.setState({user: nextProps.currentUser});
 	}
 	componentWillUnmount() {
 		window.removeEventListener("scroll", this.onScroll);
@@ -31,8 +33,8 @@ class Navi extends Component {
     <div style={{width:'100%', height:'250px',  display:'flex', flexDirection:'column'}}>
 		<div style={{width:'100%', height:'20px', padding:'0px 8px', background:'white', zIndex:'5', position:'fixed', top:'0px', textAlign:'right' }}>
 			{
-				this.state.user.logged_in !== this.props.currentUser.logged_in ?
-					this.setState({user: this.props.currentUser}) : null
+				//this.state.user.logged_in !== this.props.currentUser.logged_in ?
+				//	this.setState({user: this.props.currentUser}) : null
 			}
 			{
 				this.state.user.logged_in ?
