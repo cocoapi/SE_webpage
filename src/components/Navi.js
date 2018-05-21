@@ -8,7 +8,7 @@ class Navi extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user: props.currentUser,
+			user: props.user,
 			sticky: false,
 		}
 	}
@@ -38,7 +38,7 @@ class Navi extends Component {
 			}
 			{
 				this.state.user.logged_in ?
-				<Link style={{color:'black'}} to='/' onClick={ () => this.props.userLogout() }> 
+				<Link style={{color:'black'}} to='/' onClick={ () => this.props.dispatch(logout()) }> 
 					<Icon type='logout'/>로그아웃 
 				</Link>
 				:
@@ -83,10 +83,10 @@ class Navi extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
 	return {
-		userLogout: () => dispatch(logout())
-	};
+		user: state.currentUser,
+	}
 }
 
-export default connect(state => state, mapDispatchToProps)(Navi);
+export default connect(mapStateToProps)(Navi);
