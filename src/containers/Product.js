@@ -9,13 +9,13 @@ const dataSource ={
 }
 
 class Product extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       Quantity: 0,
-    }
+    };
   }
-  
+
   render() {
     return (
       <div>

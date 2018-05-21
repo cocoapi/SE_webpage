@@ -6,10 +6,10 @@ class Front extends Component {
   render() {
     return (
       <div>
-		<Ads />
-		<List />
-		<List />
-	  </div>
+        <Ads />
+        <List />
+        <List />
+      </div>
     );
   }
 }

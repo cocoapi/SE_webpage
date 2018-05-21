@@ -22,9 +22,9 @@ class Router extends Component {
                     component={ Buypage }
                     />
                 <Route 
-                        path="/Login" 
-                        component={ Login }
-                        />
+                    path="/Login" 
+                    component={ Login }
+                    />
                 <Route 
                     path="/Nintendo" 
                     component={ Consoles }
@@ -46,7 +46,7 @@ class Router extends Component {
                     component={ Cart }
                     />
                 <Route 
-                    path="/Product/"  //Route /[Console_name]/[product_name]
+                    path="/Product/:ProductName"  
                     component={ Product }
                     />
                 <Route 
