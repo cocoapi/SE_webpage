@@ -16,7 +16,7 @@ class Navi extends Component {
 		window.addEventListener("scroll", this.onScroll);	
 	}
 	componentWillReceiveProps(nextProps){
-		this.setState({user: nextProps.currentUser});
+		this.setState({user: nextProps.user});
 	}
 	componentWillUnmount() {
 		window.removeEventListener("scroll", this.onScroll);

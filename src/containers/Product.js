@@ -13,6 +13,7 @@ class Product extends Component {
     super(props);
     this.state = {
       Quantity: 0,
+	  modalVisible: false,
     };
   }
 
@@ -32,10 +33,19 @@ class Product extends Component {
            
             <div style={{marginTop:'40%', fontSize:'20px'}}> 가격: {dataSource.price} </div>
             <div style={{position:'absolute', bottom:'10px', left:'0', right:'0', marginLeft:'auto', marginRight:'auto'}}>
-              <Button icon='credit-card' size='large' href='buy'style={{marginRight:'10px'}}> 주문하기 </Button>
+              <Button icon='credit-card' size='large' style={{marginRight:'10px'}}
+			  onClick={()=>{this.props.history.push('/Buy')}}> 주문하기 </Button>
               <Button icon='shopping-cart' size='large' onClick={() => {
-                Modal.success({ title:"장바구니에 추가되었습니다.", content: "장바구니를 확인하시겠습니까?",});
+				this.setState({modalVisible: true})
               }}> 장바구니 </Button>
+				<Modal
+					title='장바구니에 추가되었습니다.'
+					visible={this.state.modalVisible}
+					onOk={()=>{this.props.history.push('/Shopping_Cart')}}
+					onCancel={()=>{this.setState({modalVisible: false})}}
+				>
+					장바구니를 확인하시겠습니까?
+					</Modal>
             </div>
           </Col>
         </Row>
