@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 import { setUser } from '../actions/index';
 
 const FormItem = Form.Item;

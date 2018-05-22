@@ -26,11 +26,11 @@ class Router extends Component {
                     component={ Login }
                     />
                 <Route 
-                    path="/Nintendo" 
+                    exact path="/Nintendo" 
                     component={ Consoles }
                     />
                 <Route 
-                    path="/PlayStation" 
+                    exact path="/PlayStation" 
                     component={ Consoles }
                     />
                 <Route
@@ -38,7 +38,7 @@ class Router extends Component {
                     component={ Resister }
                     />
                 <Route 
-                    path="/XBOX" 
+                    exact path="/XBOX" 
                     component={ Consoles }
                     />
                 <Route 
@@ -46,7 +46,7 @@ class Router extends Component {
                     component={ Cart }
                     />
                 <Route 
-                    path="/Product/:ProductName"  
+                    path="/:Console/:ProductName"  
                     component={ Product }
                     />
                 <Route 
