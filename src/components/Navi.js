@@ -33,10 +33,6 @@ class Navi extends Component {
     <div style={{width:'100%', height:'250px',  display:'flex', flexDirection:'column'}}>
 		<div style={{width:'100%', height:'20px', padding:'0px 8px', background:'white', zIndex:'5', position:'fixed', top:'0px', textAlign:'right' }}>
 			{
-				//this.state.user.logged_in !== this.props.currentUser.logged_in ?
-				//	this.setState({user: this.props.currentUser}) : null
-			}
-			{
 				this.state.user.logged_in ?
 				<Link style={{color:'black'}} to='/' onClick={ () => this.props.dispatch(logout()) }> 
 					<Icon type='logout'/>로그아웃 
@@ -49,7 +45,7 @@ class Navi extends Component {
 			<div style={{height:'200px', display:'flex', flexDirection:'row'}}>
 				<div style={{width:'33%'}}/>
 				<div style={{width:'33%', overflow:'hidden'}}>
-					<Link to="/"><img width='100%' src='https://www.kw.ac.kr/_res/ko/img/intro/symbol01_06.jpg' alt='Mark'/></Link>
+					<Link to="/"><img width='100%' src='https://www.kw.ac.kr/_res/ko/img/intro/symbol01_02.jpg' alt='Mark'/></Link>
 				</div>
 			</div>
 			{this.state.sticky === false ? 
