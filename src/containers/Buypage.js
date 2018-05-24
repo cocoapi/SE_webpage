@@ -75,7 +75,7 @@ class Buypage extends Component {
         }
         this.clickOrder= this.clickOrder.bind(this);
     }
-    
+
     clickOrder = () => {
         this.setState({apporove : true});
     };
