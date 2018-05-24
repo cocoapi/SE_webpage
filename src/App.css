@@ -7,6 +7,10 @@
   height: 80px;
 }
 
+div{
+ font-family: 'Nanum Gothic', sans-serif;
+}
+
 .App-header {
   background-color: #222;
   height: 150px;
@@ -22,9 +26,29 @@
   font-size: large;
 }
 
+.demo-infinite-container {
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  overflow: auto;
+  padding: 8px 24px;
+  height: 300px;
+}
+.demo-loading-container {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+@font-face{
+  font-family: 'Nanum Gothic', sans-serif;
+  src: url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
 }
 
 @import "../node_modules/antd/dist/antd.css"
