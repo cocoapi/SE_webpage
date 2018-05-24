@@ -82,7 +82,7 @@ class Buypage extends Component {
 
     render() {
         return (
-            this.state.apporove == false ? 
+            this.state.apporove === false ? 
                 <div style={{height: '800px', display:'flex', flexDirection:'column'}}>
                     <div style={{height:'30%'}}/>
                     <div style={{height:'40%', display:'flex', flexDirection:'row'}}>
