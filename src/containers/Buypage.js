@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Button, Row, Col, Table, Input} from 'antd';
 import LoginForm from '../components/LoginForm';
 const { Column }  = Table;
@@ -20,12 +21,15 @@ class Buypage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            apporove : false,
+            apporove : props.user.logged_in ? true : false,
             dataSource : dataSource,
         }
         this.clickOrder= this.clickOrder.bind(this);
     }
-    
+    componentWillReceiveProps(nextProps){
+        nextProps.user.logged_in ? this.setState({apporove: true}) : null
+    }
+
     clickOrder = () => {
         this.setState({apporove : true});
     };
@@ -38,7 +42,7 @@ class Buypage extends Component {
                     <div style={{height:'40%', display:'flex', flexDirection:'row'}}>
                         <div style={{width:'25%'}} />
                         <div style={{width:'30%', padding: '8px'}}>
-                            <LoginForm />
+                            <LoginForm history={this.props.history} location={this.props.location}/>
                         </div>
                         <div style={{width:'30%', padding: '8px', display:'flex', flexDirection:'column'}}>
                             <div style={{ height: '25%'}} />
@@ -167,4 +171,10 @@ class Buypage extends Component {
     }
 }
 
-export default Buypage;
+const mapStateToProps = state => {
+    return {
+        user: state.currentUser,
+    }
+}
+
+export default connect(mapStateToProps)(Buypage);

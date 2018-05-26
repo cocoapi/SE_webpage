@@ -20,8 +20,8 @@ class List extends Component {
         </div>
         <div style={{ height: '100px' }}>
           <p>
-            <Link to={{ pathname: '/ProductList', state: { consoleName: this.state.consoleName } }}> 하드웨어 </Link> /
-            <Link to={{ pathname: '/ProductList', state: { consoleName: this.state.consoleName } }}> 타이틀 </Link>
+            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName } }}> 하드웨어 </Link> /
+            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName } }}> 타이틀 </Link>
           </p>
         </div>
         this is list for all products

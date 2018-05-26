@@ -18,7 +18,7 @@ class Login extends Component {
           if (!err) {
             console.log('Received values of form: ', values);  
 			this.props.userLogin({userName:values.userName, password:values.password});
-			this.props.history.goBack();			
+			this.props.location.pathname === '/Buy' ? null : this.props.history.goBack();			
 		  }
         });
       }
