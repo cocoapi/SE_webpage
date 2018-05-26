@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Select, Button } from 'antd';
+import { Form, Input, Tooltip, Icon, Select, Button, Modal } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
+import axios from 'axios';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -41,6 +42,22 @@ class RegistrationForm extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+		const args = [
+		]
+		axios.post('http://127.0.0.1:3001/users', {
+			email: values.email,
+			nickname: values.nickname,
+			phone: values.prefix + values.phone,
+			address: this.state.fulladdress + ' ' + values.residence2,
+			password: values.password,
+		})
+		.then(r => {
+			console.log(r)
+		})
+		.catch(e => {
+			console.log(e)
+		})
+		Modal.success({title:'회원가입 완료', content:'회원가입이 완료되었습니다.', onOk(){window.location.href='/Login'}})
       }
     });
   }
@@ -236,7 +253,7 @@ class Register extends Component {
             <div style={{height: '55%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
               <div style={{width: '30%'}}/>
               <div style={{width: '40%', border: '1px solid gray', padding: '40px'}}>
-                <WrappedRegistrationForm style={{border: '1px soid gray'}}/>
+                <WrappedRegistrationForm style={{border: '1px soid gray'}} history={this.props.history}/>
               </div>
             </div>
 	        </div>
