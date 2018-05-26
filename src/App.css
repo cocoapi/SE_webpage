@@ -7,6 +7,10 @@
   height: 80px;
 }
 
+div{
+ font-family: 'Nanum Gothic', sans-serif;
+}
+
 .App-header {
   background-color: #222;
   height: 150px;
@@ -25,6 +29,12 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+@font-face{
+  font-family: 'Nanum Gothic', sans-serif;
+  src: url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
 }
 
 @import "../node_modules/antd/dist/antd.css"
