@@ -10,52 +10,57 @@ import Product from './containers/Product';
 import LargeList from './containers/LargeList';
 
 class Router extends Component {
-    render() {
-        return (
-            <div>
-                <Route 
-                    exact path="/"
-                    component={ Front }
-                    />
-                <Route
-                    path='/Buy'
-                    component={ Buypage }
-                    />
-                <Route 
-                    path="/Login" 
-                    component={ Login }
-                    />
-                <Route 
-                    path="/Nintendo" 
-                    component={ Consoles }
-                    />
-                <Route 
-                    path="/PlayStation" 
-                    component={ Consoles }
-                    />
-                <Route
-                    path="/Resistration"
-                    component={ Resister }
-                    />
-                <Route 
-                    path="/XBOX" 
-                    component={ Consoles }
-                    />
-                <Route 
-                    path="/Shopping_Cart" 
-                    component={ Cart }
-                    />
-                <Route 
-                    path="/Product/:ProductName"  
-                    component={ Product }
-                    />
-                <Route 
-                    path="/ProductList"  //Route /[Console_name]/[product_name]
-                    component={ LargeList }
-                    />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <Route
+          exact
+          path="/"
+          component={Front}
+        />
+        <Route
+          path="/Buy"
+          component={Buypage}
+        />
+        <Route
+          path="/Login"
+          component={Login}
+        />
+        <Route
+          exact
+          path="/Nintendo"
+          component={Consoles}
+        />
+        <Route
+          exact
+          path="/PlayStation"
+          component={Consoles}
+        />
+        <Route
+          path="/Resistration"
+          component={Resister}
+        />
+        <Route
+          exact
+          path="/XBOX"
+          component={Consoles}
+        />
+        <Route
+          path="/Shopping_Cart"
+          component={Cart}
+        />
+        <Route
+          exact
+          path="/:Console/ProductList" // Route /[Console_name]/[product_name]
+          component={LargeList}
+        />
+        <Route
+          path="/:Console/ProductList/:ProductName"
+          component={Product}
+        />
+      </div>
+    );
+  }
 }
 
 export default Router;

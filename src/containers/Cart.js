@@ -28,22 +28,21 @@ class Cart extends Component {
 
   onClickUpMethod(key) {
     if (dataSource[key - 1].quantity >= 99) return;
-
-    dataSource[key - 1].quantity++;
+    dataSource[key - 1].quantity += 1;
     this.setState({ dataSource });
   }
 
   onClickDownMethod(key) {
     if (dataSource[key - 1].quantity <= 1) return;
 
-    dataSource[key - 1].quantity--;
+    dataSource[key - 1].quantity -= 1;
     this.setState({ dataSource });
   }
 
   truncCart() {
     this.setState({ dataSource: [] });
   }
-
+  
   render() {
     return (
       <div style={{ height: '1000px', display: 'flex', flexDirection: 'column' }}>
@@ -101,8 +100,12 @@ class Cart extends Component {
         </Table>
 
         <div style={{ marginTop: '8px' }}>
-          <Button type="primary" href="/buy" style={{ marginRight: '4px' }}>주문하기</Button>
-          <Button style={{ marginRight: '4px' }}>계속쇼핑하기</Button>
+          <Button type="primary" style={{ marginRight: '4px' }} onClick={() => {
+			this.props.history.push('/Buy')
+		  }}>주문하기</Button>
+          <Button style={{ marginRight: '4px' }} onClick={()=>{
+			this.props.history.goBack()
+		  }}>계속쇼핑하기</Button>
           <Button onClick={() => this.truncCart()}>장바구니 비우기</Button>
         </div>
       </div>

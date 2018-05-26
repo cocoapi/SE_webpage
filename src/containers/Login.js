@@ -9,7 +9,7 @@ class Login extends Component {
         <div style={{ height: '40%', display: 'flex', flexDirection: 'row' }}>
           <div style={{ width: '35%' }} />
           <div style={{ width: '30%', padding: '8px' }}>
-            <LoginForm />
+            <LoginForm history={this.props.history} location={this.props.location} />
           </div>
           <div style={{ width: '35%' }} />
         </div>

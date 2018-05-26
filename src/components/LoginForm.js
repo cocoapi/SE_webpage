@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 import { setUser } from '../actions/index';
 
 const FormItem = Form.Item;
@@ -18,8 +17,9 @@ class Login extends Component {
         this.props.form.validateFields((err, values) => {
           if (!err) {
             console.log('Received values of form: ', values);  
-						this.props.userLogin({userName:values.userName, password:values.password});
-					}
+			this.props.userLogin({userName:values.userName, password:values.password});
+			this.props.location.pathname === '/Buy' ? null : this.props.history.goBack();			
+		  }
         });
       }
 

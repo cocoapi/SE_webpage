@@ -9,7 +9,8 @@ class List extends Component {
  height: '300px', display: 'flex', flexDirection: 'row', padding: '8px',
 }}
       >
-        <Link to={'/Product/' + 'supermario'}>
+        <Link to={this.props.data + '/ProductList' + '/supermario'}>
+		{console.log(this.props.location)}
           {this.props.data !== 'Nintendo' ?
             <Card title="Card title" style={{ width: 200, height: 284 }}>
               <p> title </p>
