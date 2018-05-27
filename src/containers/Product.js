@@ -10,6 +10,28 @@ const dataSource ={
   date: '2018/05/23'
 }
 
+const reviews = [{
+  email: "sdsd",
+  title: "재미있네요",
+  platform: "PS",
+  content: "짱짱"
+},{
+  email: "wdwdw",
+  title: "와우",
+  platform: "PS",
+  content: "좋아요"
+},{
+  email: "wdwdwss",
+  title: "재미없어요",
+  platform: "PS",
+  content: "별로네요"  
+},{
+  email: "wdwdwss",
+  title: "재미없어요",
+  platform: "PS",
+  content: "별로네요"    
+}]
+
 const subTitle = {
   borderBottom: "1px solid gray", 
   marginBottom: "10px", 
@@ -101,7 +123,7 @@ class Product extends Component {
           </Row>
           <Row>
             <Col span={18} offset={3}>
-            <Review/>
+             {/* // <Review reviews={reviews}/> */}
             </Col>
           </Row>
         </Col>

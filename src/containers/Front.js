@@ -13,32 +13,32 @@ const subTitle = {
   marginTop:'150px'
 }
 
-const products = [{
-    title: "진삼국무쌍",
-    price: "45000"
-  },{
-    title: "SuperMario",
-    price: "20000"
-  },{
-    title: "히트맨",
-    price: "30000" 
-  },{
-    title: "드래곤볼",
-    price: "23400"
-  },{
-    title: "드래곤볼",
-    price: "23400"
-  },{
-    title: "드래곤볼",
-    price: "23400"
-  },{
-    title: "드래곤볼",
-    price: "23400"
-  },{
-    title: "드래곤볼",
-    price: "23400"
-  }
-]
+// const productsss = [{
+//     title: "진삼국무쌍",
+//     price: "45000"
+//   },{
+//     title: "SuperMario",
+//     price: "20000"
+//   },{
+//     title: "히트맨",
+//     price: "30000" 
+//   },{
+//     title: "드래곤볼",
+//     price: "23400"
+//   },{
+//     title: "드래곤볼",
+//     price: "23400"
+//   },{
+//     title: "드래곤볼",
+//     price: "23400"
+//   },{
+//     title: "드래곤볼",
+//     price: "23400"
+//   },{
+//     title: "드래곤볼",
+//     price: "23400"
+//   }
+// ]
 
 
 class Front extends Component {
@@ -51,7 +51,7 @@ class Front extends Component {
     } 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get('http://localhost:3001/products')
         .then(res => {
           console.log(res);
@@ -61,6 +61,7 @@ class Front extends Component {
 
   render() {
     return (
+      this.state.newProducts.length?
       <div>
         <Ads/>
         <Row style={subTitle}>
@@ -68,14 +69,14 @@ class Front extends Component {
               New Products
             </Col>
         </Row>
-        <List products={products}/>
+        <List productss={this.state.newProducts}/>
         <Row style={subTitle}>
             <Col span={4}>
               Best Items
             </Col>
         </Row>
-        <List products={products}/>     
-      </div>
+        <List productss={this.state.newProducts}/>     
+      </div>:null
     );
   }
 }

@@ -7,36 +7,36 @@ class List extends Component {
   constructor(props){
     super(props);
     this.state = {
-      products: this.props.products
+      productss: this.props.productss
     } 
   }
 
   render() {
-    const CardList = (data) => (
-      <Row gutter={48} style={{marginTop:'40px'}}>
-        {data.map((product, index) => (
+    return (
+      <Row gutter={48} style={{marginTop:'40px'}}>{
+          this.state.productss.map((product, index) => {
+            {
+              console.log(product._id);
+              
+             }
+          return  (
             <Col span={6}>
-              <Link to={this.props.data + '/ProductList' + '/supermario'}>
+              <Link to={product.platform + '/ProductList' + '/supermario'}>
                   <Card 
                     hoverable
                     style={{ width: '100%' }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                    cover={<img alt="example" src={'http://localhost:3001/products/image/1/'.concat(product._id)} />}
                   >
                     <Meta
-                      title = {product.title}
+                      title = {product.name}
                       description = {product.price}
                     />
                     </Card>
               </Link>
-            </Col>
-        ))}
+            </Col>)
+            }
+        )}
       </Row>
-    );
-
-    return (
-      <div>
-        {CardList(this.state.products)}
-      </div>
     );
   }
 }

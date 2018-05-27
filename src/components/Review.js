@@ -2,27 +2,28 @@ import React, { Component } from 'react';
 import { Collapse } from 'antd';
 const Panel = Collapse.Panel;
 
-
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-
 class Review extends Component{
+    constructor(props) {
+      super(props);
+      this.state = {
+        reviews: this.props.reviews
+      };
+    }
     render(){
-        return(
-          <Collapse accordion>
-          <Panel header="너무 좋아요!" key="1">
-            <p>{text}</p>
-          </Panel>
-          <Panel header="재밌습니다." key="2">
-            <p>{text}</p>
-          </Panel>
-          <Panel header="재미 없어요." key="3">
-            <p>{text}</p>
-          </Panel>
+      var reviewList = (data) =>{
+        <Collapse accordion>
+            {data.map((review, index) => (
+              <Panel header={review.title} key={index+1}>
+                <p>{review.content}</p>
+              </Panel>
+            ))};
         </Collapse>
+      };
+
+      return(
+        <div>
+          {reviewList(this.state.reviews)}
+        </div>
     )}   
 }
 
