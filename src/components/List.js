@@ -34,7 +34,9 @@ class List extends Component {
     );
 
     return (
-      <tr key="a"><td>{CardList(this.state.products)}</td></tr>
+      <div>
+        {CardList(this.state.products)}
+      </div>
     );
   }
 }

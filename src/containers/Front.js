@@ -1,10 +1,9 @@
 import React, { Component} from 'react';
-import {Row, Col, Card} from 'antd';
+import {Row, Col, Card, Pagination} from 'antd';
 import { Link } from 'react-router-dom';
 import List from '../components/List';
 import Ads from '../components/Ads';
-
-
+import axios from 'axios';
 
 const subTitle = {
   borderBottom: "1px solid gray", 
@@ -46,9 +45,19 @@ class Front extends Component {
   constructor(props){
     super(props);
     this.state = {
-      products: products
+      newProducts: [],
+      bestProducts: [],
+      img: ''
     } 
   }
+
+  componentWillMount() {
+    axios.get('http://localhost:3001/products')
+        .then(res => {
+          console.log(res);
+          this.setState({newProducts: res.data})     
+        });
+    }
 
   render() {
     return (
@@ -56,10 +65,16 @@ class Front extends Component {
         <Ads/>
         <Row style={subTitle}>
             <Col span={4}>
-              Product Detail 
+              New Products
             </Col>
         </Row>
         <List products={products}/>
+        <Row style={subTitle}>
+            <Col span={4}>
+              Best Items
+            </Col>
+        </Row>
+        <List products={products}/>     
       </div>
     );
   }

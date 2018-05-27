@@ -28,6 +28,10 @@ class Product extends Component {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   onChange = (value) =>{
     console.log('changed', value);
   }
