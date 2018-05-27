@@ -3,6 +3,17 @@ import { Link } from 'react-router-dom';
 import List from '../components/List';
 import Ads from '../components/Ads';
 
+const data = [{
+  title: 'hihi',
+  price: '123123'
+},{
+  title: 'hohohoho',
+  price: '123123'
+},{
+  title: 'wikiki',
+  price: '123123'
+}]
+
 class Consoles extends Component {
   constructor(props) {
     super(props);
@@ -12,19 +23,14 @@ class Consoles extends Component {
   }
   render() {
     return (
-      <div style={{ height: '1000px', display: 'flex', flexDirection: 'column' }}>
-        <div>
+      <div>
           <p> { this.state.consoleName } </p>
-        </div>
-        <div>
           <p>
             <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName } }}> 하드웨어 </Link> /
             <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName } }}> 타이틀 </Link>
           </p>
-        </div>
         <Ads />
-        <List data={this.state.consoleName} />
-        <List />
+        <List products={data} />
       </div>
     );
   }

@@ -60,7 +60,6 @@ class Front extends Component {
             </Col>
         </Row>
         <List products={products}/>
-
       </div>
     );
   }

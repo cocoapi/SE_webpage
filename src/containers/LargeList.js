@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from 'antd';
+import { Card, Row, Col } from 'antd';
+
+const subTitle = {
+  borderBottom: "1px solid gray", 
+  marginBottom: "10px", 
+  fontSize: '20px', 
+  paddingBottom:'20px',
+  marginTop:'150px'
+}
 
 class List extends Component {
   constructor(props) {
@@ -11,20 +19,17 @@ class List extends Component {
   }
   render() {
     return (
-      <div style={{
- height: '1000px', display: 'flex', flexDirection: 'column', padding: '12px',
-}}
-      >
-        <div style={{ heigth: '100px' }} >
-          <p> { this.state.consoleName } </p>
-        </div>
-        <div style={{ height: '100px' }}>
-          <p>
-            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName } }}> 하드웨어 </Link> /
-            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName } }}> 타이틀 </Link>
-          </p>
-        </div>
-        this is list for all products
+      <div>
+        <p> { this.state.consoleName } </p>
+        <p>
+          <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName } }}> 하드웨어 </Link> /
+          <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName } }}> 타이틀 </Link>
+        </p>
+        <Row style={subTitle}>
+            <Col span={4}>
+              Product title
+            </Col>
+        </Row>
       </div>
     );
   }

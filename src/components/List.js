@@ -15,28 +15,26 @@ class List extends Component {
     const CardList = (data) => (
       <Row gutter={48} style={{marginTop:'40px'}}>
         {data.map((product, index) => (
-          <Link to={this.props.data + '/ProductList' + '/supermario'}>
             <Col span={6}>
-              <Card 
-                hoverable
-                style={{ width: '100%' }}
-                cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-              >
-                <Meta
-                  title = {product.title}
-                  description = {product.price}
-                />
-              </Card>
+              <Link to={this.props.data + '/ProductList' + '/supermario'}>
+                  <Card 
+                    hoverable
+                    style={{ width: '100%' }}
+                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                  >
+                    <Meta
+                      title = {product.title}
+                      description = {product.price}
+                    />
+                    </Card>
+              </Link>
             </Col>
-          </Link>
         ))}
       </Row>
     );
 
     return (
-        <div>
-          {CardList(this.state.products)}
-        </div>
+      <tr key="a"><td>{CardList(this.state.products)}</td></tr>
     );
   }
 }
