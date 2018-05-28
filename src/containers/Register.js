@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Select, Button } from 'antd';
+import { Form, Input, Tooltip, Icon, Select, Button, Row, Col } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 
 const FormItem = Form.Item;
@@ -169,6 +169,16 @@ class RegistrationForm extends React.Component {
             <Input />
           )}
         </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label='우편번호'
+        >
+          {getFieldDecorator('residance', {
+            rules: [{ required: true, message: '우편번호를 입력하세요!', whitespace: true }],
+          })(
+            <Input />
+          )}
+        </FormItem>
         <FormItem 
           {...formItemLayout}
           label="거주지"
@@ -226,23 +236,17 @@ const WrappedRegistrationForm = Form.create()(RegistrationForm);
 class Register extends Component {
   render() {
     return (
-          <div style={{height:'1000px', width:'100%', margin:'auto', display:'flex', flexDirection:'column'}}>
-            <div style={{height: '20%', display:'flex', flexDirection:'column', fontFamily: "Comic Sans MS" , fontsize: "30px", backgroundColor: 'LightGray'}}>
-              <div style={{height: '40%'}}/>
-              <div style={{height: '20%'}}>
-                <h1>회원가입</h1>
-              </div>
-              <div style={{height: '40%'}}/>
-            </div>
-            <div style={{height: '55%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
-              <div style={{width: '30%'}}/>
-              <div style={{width: '40%', border: '1px solid gray', padding: '40px'}}>
-                <WrappedRegistrationForm style={{border: '1px soid gray'}}/>
-              </div>
-            </div>
-	        </div>
-    );
-  }
+      <div>
+        <Row style={{marginTop:'50px', borderBottom:'1px solid black', paddingBottom:'5px', textAlign:'left'}}>
+            <Col span={6}><strong style={{fontSize:'30px'}}>주문/결제</strong></Col>
+        </Row>
+        <Row style={{paddingTop: '40px', paddingBottom:'10px', borderTop:'1px solid black', borderBottom:'1px solid black'}}>
+          <Col span={12} offset={4} >
+            <WrappedRegistrationForm/>
+          </Col>
+        </Row>
+      </div>
+    )}
 }
 
 export default Register;
