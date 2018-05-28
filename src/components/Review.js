@@ -9,22 +9,20 @@ class Review extends Component{
         reviews: this.props.reviews
       };
     }
+
     render(){
-      var reviewList = (data) =>{
-        <Collapse accordion>
-            {data.map((review, index) => (
+      const reviewList = this.state.reviews.map( (review, index) => {
+        return(
               <Panel header={review.title} key={index+1}>
                 <p>{review.content}</p>
               </Panel>
-            ))};
-        </Collapse>
-      };
+        )});
 
-      return(
-        <div>
-          {reviewList(this.state.reviews)}
-        </div>
-    )}   
+    return(
+      <Collapse accordion>
+        {reviewList}
+      </Collapse>
+  )}   
 }
 
 export default Review;

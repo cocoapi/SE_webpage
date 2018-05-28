@@ -45,9 +45,8 @@ class Front extends Component {
   constructor(props){
     super(props);
     this.state = {
-      newProducts: [],
+      newProducts: null,
       bestProducts: [],
-      img: ''
     } 
   }
 
@@ -61,7 +60,7 @@ class Front extends Component {
 
   render() {
     return (
-      this.state.newProducts.length?
+      this.state.newProducts == null? null:
       <div>
         <Ads/>
         <Row style={subTitle}>
@@ -69,14 +68,14 @@ class Front extends Component {
               New Products
             </Col>
         </Row>
-        <List productss={this.state.newProducts}/>
+        <List products={this.state.newProducts}/>
         <Row style={subTitle}>
             <Col span={4}>
               Best Items
             </Col>
         </Row>
-        <List productss={this.state.newProducts}/>     
-      </div>:null
+        <List products={this.state.newProducts}/>     
+      </div>
     );
   }
 }

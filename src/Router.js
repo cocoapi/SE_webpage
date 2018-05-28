@@ -55,7 +55,7 @@ class Router extends Component {
           component={LargeList}
         />
         <Route
-          path="/:Console/ProductList/:ProductName"
+          path="/:Console/ProductList/:ProductId"
           component={Product}
         />
       </div>
