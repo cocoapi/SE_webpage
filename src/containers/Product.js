@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Modal, Row, Col, InputNumber } from 'antd';
 import { Link } from 'react-router-dom';
 import Review from '../components/Review';
+import axios from 'axios';
 
 const dataSource ={
   productName: 'PS4 히트맨 DEFINITIVE EDITION',
@@ -46,12 +47,19 @@ class Product extends Component {
     this.state = {
       Quantity: 0,
 	    modalVisible: false,
-      dataSource: dataSource
+      product_id: this.props.match.params.ProductId,
+      product_info: null,
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0)
+
+    axios.get('http://localhost:3001/products/product/' + this.state.product_id)
+        .then(res => {
+          console.log(res);
+          this.setState({product_info: res.data})     
+        });
   }
 
   onChange = (value) =>{
@@ -59,44 +67,46 @@ class Product extends Component {
   }
 
   render() {
+    console.log(this.state.product_id)
     return (
+      this.state.product_info == null? null: 
       <div>
         <Row>
         <Col span={20} offset={2}>
-          <Row type="flex" justify="space-around" style={{marginTop: '100px', marginBottom: '50px'}}>
+          <Row type="flex" justify="space-around" style={{marginTop: '100px', marginBottom: '50px', paddingBottom: '10px', paddingTop: '10px', borderTop: '1px solid black', borderBottom: '1px solid black'}}>
             <Col span={8} style={{border: '1px solid black'}}>
-
+               <img src = {'http://localhost:3001/products/image/1/' + this.state.product_id} style={{width : '100%'}}/>
             </Col>
-            <Col span={8} style={{border:'1px solid black', padding: '25px'}}>
+            <Col span={10} style={{padding: '25px'}}>
               <Row>
-                <h2 style={{borderBottom:'1px solid black'}}y> {this.state.dataSource.productName} </h2>
+                <h1 style={{borderBottom:'1px solid black'}}> {this.state.product_info.name} </h1>
               </Row>
               <Row>
-                제조사: {this.state.dataSource.company}
+                제조사: {this.state.product_info.provider}
               </Row>
-              <Row style={{marginTop:'40px', fontSize:'15px'}}>
-                출시일: {this.state.dataSource.date}
+              <Row style={{marginTop:'40px', fontSize:'20px'}}>
+                출시일: {this.state.product_info.release_date.slice(0, 10)}
               </Row>
-              <Row style={{marginTop:'100px', fontSize:'15px'}}>
-                가격: {this.state.dataSource.price}
+              <Row style={{marginTop:'100px', fontSize:'20px'}}>
+                가격: {this.state.product_info.price.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}원
               </Row>
-              <Row style={{marginTop:'40px', fontSize:'15px'}}>
+              <Row style={{marginTop:'40px', fontSize:'20px'}}>
                 수량:  <InputNumber min={1} max={99} defaultValue={1} size='medium'/>
               </Row>
               <Row style={{marginTop:'60px'}}>
                   <Button icon='credit-card' size='large' style={{marginRight:'10px'}}
-			  onClick={()=>{this.props.history.push('/Buy')}}> 주문하기 </Button>
-              <Button icon='shopping-cart' size='large' onClick={() => {
-				this.setState({modalVisible: true})
-              }}> 장바구니 </Button>
-				<Modal
-					title='장바구니에 추가되었습니다.'
-					visible={this.state.modalVisible}
-					onOk={()=>{this.props.history.push('/Shopping_Cart')}}
-					onCancel={()=>{this.setState({modalVisible: false})}}
-				>
-					장바구니를 확인하시겠습니까?
-					</Modal>
+                    onClick={()=>{this.props.history.push('/Buy')}}> 주문하기 </Button>
+                          <Button icon='shopping-cart' size='large' onClick={() => {
+                    this.setState({modalVisible: true})
+                          }}> 장바구니 </Button>
+                    <Modal
+                      title='장바구니에 추가되었습니다.'
+                      visible={this.state.modalVisible}
+                      onOk={()=>{this.props.history.push('/Shopping_Cart')}}
+                      onCancel={()=>{this.setState({modalVisible: false})}}
+                              >
+                    장바구니를 확인하시겠습니까?
+                    </Modal>
               </Row>
             </Col>
           </Row>
@@ -108,9 +118,7 @@ class Product extends Component {
           </Row>
           <Row>
             <Col span={24}>
-                <div style={{height:'500px'}}>
 
-                </div>
             </Col>
           </Row>
           <Row style={subTitle}>
