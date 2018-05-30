@@ -38,6 +38,15 @@ class Consoles extends Component {
     });
   }
 
+  // onChange = (page, pageSize) => { // page onchange
+  //     axios.get('http://localhost:3001/products/all' + page)
+  //           .then(res => {
+  //             this.setState({
+  //               products: res.data
+  //             });
+  //           });
+  // }
+
   componentDidMount(){
       if(this.state.consoleName === 'PS'){
           axios.get('http://localhost:3001/products/list/PS/title')
@@ -63,13 +72,6 @@ class Consoles extends Component {
           });
       }
     }
-
-  // onChange = (page, pageSize) => {
-  //     axios.get('http://localhost:3001')h
-  //           .then(res => {
-              
-  //           });
-  // }
   
   render() {
     return (

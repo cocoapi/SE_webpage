@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Modal, Row, Col, InputNumber } from 'antd';
 import { Link } from 'react-router-dom';
 import Review from '../components/Review';
+import ReviewModal from '../components/Modal';
 import axios from 'axios';
 
 const dataSource ={
@@ -12,25 +13,29 @@ const dataSource ={
 }
 
 const reviews = [{
-  email: "sdsd",
+  email: "soondi@hanmail.net",
   title: "재미있네요",
   platform: "PS",
-  content: "짱짱"
+  content: "짱짱",
+  rate: 5
 },{
-  email: "wdwdw",
+  email: "hihi@naver.com",
   title: "와우",
   platform: "PS",
-  content: "좋아요"
+  content: "좋아요",
+  rate: 5
+},{
+  email: "dododo@hotmail.net",
+  title: "재미없어요",
+  platform: "PS",
+  content: "별로네요",
+  rate: 2  
 },{
   email: "wdwdwss",
   title: "재미없어요",
   platform: "PS",
-  content: "별로네요"  
-},{
-  email: "wdwdwss",
-  title: "재미없어요",
-  platform: "PS",
-  content: "별로네요"    
+  content: "별로네요",
+  rate: 3
 }]
 
 const subTitle = {
@@ -131,7 +136,12 @@ class Product extends Component {
           </Row>
           <Row>
             <Col span={18} offset={3}>
-             {/* // <Review reviews={reviews}/> */}
+              <Review reviews={reviews}/>
+              <Row style={{paddingTop:'10px'}}>
+                <Col span = {4} offset={20}>
+                  <ReviewModal/>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Col>
