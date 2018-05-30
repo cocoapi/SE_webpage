@@ -50,8 +50,7 @@ class Consoles extends Component {
   componentDidMount(){
       if(this.state.consoleName === 'PS'){
           axios.get('http://localhost:3001/products/list/PS/title')
-              .then(res => {
-                
+              .then(res => {     
                 this.setState({products: res.data})
           });
       }
@@ -80,12 +79,12 @@ class Consoles extends Component {
         <Row style={{marginTop:'50px', borderBottom:'1px solid black', paddingBottom:'5px', textAlign:'left'}}>
             <Col span={6}><strong style={{fontSize:'30px'}}>{this.state.consoleName}</strong></Col>
         </Row>
-        <Row align='middle' style={{borderTop:'1px solid black', borderBottom: '1px solid black', paddingTop:'10px', paddingBottom:'10px', fontSize:'15px'}}>
+        <Row align='middle' style={{paddingTop:'10px', paddingBottom:'10px', fontSize:'15px', backgroundColor:'WhiteSmoke'}}>
           <Col span={3} offset={9}>
-            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName, catalog: 'hardware' } }} style={{color:'gray'}}> 하드웨어 </Link>
+            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName, catalog: 'hardware' } }} style={{color:'black'}}> 하드웨어 </Link>
           </Col>
           <Col span={3}>
-            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName, catalog: 'title' } }} style={{color:'gray'}}> 타이틀 </Link>
+            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName, catalog: 'title' } }} style={{color:'black'}}> 타이틀 </Link>
           </Col>
         </Row>
         <Row>

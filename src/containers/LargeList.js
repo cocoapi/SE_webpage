@@ -19,11 +19,19 @@ class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      consoleName: props.location.state.consoleName,
-      catalog: props.location.state.catalog    
+      consoleName: this.props.location.state.consoleName,
+      catalog: this.props.location.state.catalog,
+      value: 0
     };
     this.hardwareClicked= this.hardwareClicked.bind(this);
-    this.titleClicked= this.titleClicked.bind(this);    
+    this.titleClicked= this.titleClicked.bind(this);  
+  }
+
+  onChange = (e) => { // radio onchange
+    console.log('radio checked', e.target.value);
+    this.setState({
+      value: e.target.value,
+    });
   }
 
   hardwareClicked = () =>{
@@ -43,12 +51,12 @@ class List extends Component {
             <Col span={6}><strong style={{fontSize:'30px'}}>{this.state.catalog}</strong></Col>
         </Row>
 
-        <Row align='middle' style={{borderTop:'1px solid black', borderBottom: '1px solid black', paddingTop:'10px', paddingBottom:'10px', fontSize:'15px'}}>
+        <Row align='middle' style={{paddingTop:'10px', paddingBottom:'10px', fontSize:'15px', backgroundColor:'WhiteSmoke'}}>
           <Col span={3} offset={9}>
-            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`}}  onClick={this.hardwareClicked}> 하드웨어 </Link>
+            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`}}  onClick={this.hardwareClicked} style={{color:'black'}}> 하드웨어 </Link>
           </Col>
           <Col span={3}>
-            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`}}  onClick={this.titleClicked}> 타이틀 </Link>
+            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`}}  onClick={this.titleClicked} style={{color:'black'}}> 타이틀 </Link>
           </Col>
         </Row>     
         <Row>
@@ -66,7 +74,7 @@ class List extends Component {
             </RadioGroup>       
           </Col>
         </Row>               
-        <List products={this.state.products} />
+        {/* <List products={this.state.products} /> */}
         <Row style={{marginTop:'50px'}}>
           <Pagination defaultCurrent={1} total={50} onChange={this.onChange}/>
         </Row>  

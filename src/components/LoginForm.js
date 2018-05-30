@@ -16,10 +16,10 @@ class Login extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);  
-			this.props.userLogin({userName:values.userName, password:values.password});
-			this.props.location.pathname === '/Buy' ? null : this.props.history.goBack();			
-		  }
+						console.log('Received values of form: ', values);  
+						this.props.userLogin({userName:values.userName, password:values.password});
+						this.props.location.pathname === '/Buy' ? null : this.props.history.goBack();			
+						}
         });
       }
 

@@ -15,7 +15,7 @@ class List extends Component {
     const cardList = 
      this.state.products.map((product, index) => {
         return  (
-          <Col span={6}>
+          <Col span={6} style={{padding:'30px'}}>
             <Link to={product.platform + '/ProductList/' + product._id}>
                 <Card 
                   hoverable
@@ -28,8 +28,9 @@ class List extends Component {
                   />
                   </Card>
             </Link>
-          </Col>)
-          }
+          </Col>
+          )
+        }
       )
 
     return (
