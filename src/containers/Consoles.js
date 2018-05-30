@@ -48,29 +48,14 @@ class Consoles extends Component {
   // }
 
   componentDidMount(){
-      if(this.state.consoleName === 'PS'){
-          axios.get('http://localhost:3001/products/list/PS/title')
-              .then(res => {     
-                this.setState({products: res.data})
-          });
-      }
-
-      else if(this.state.consoleName === 'XBOX'){
-        axios.get('http://localhost:3001/products/list/XBOX/title')
-        .then(res => {
-          console.log(res);
+    axios.get(`http://localhost:3001/products/list/${this.state.consoleName}/title`)
+        .then(res => {     
           this.setState({products: res.data})
-        });
-      }
-
-      else if(this.state.consoleName === 'Nintendo'){
-          axios.get('http://localhost:3001/products/list/Nintendo/title')
-          .then(res => {
-            console.log(res);
-            this.setState({products: res.data})
-          });
-      }
-    }
+        })
+        .catch(error => {
+          console.log(error)
+        });        
+  }
   
   render() {
     return (

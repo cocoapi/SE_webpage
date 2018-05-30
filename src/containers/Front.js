@@ -55,8 +55,11 @@ class Front extends Component {
         .then(res => {
           console.log(res);
           this.setState({newProducts: res.data})     
+        })
+        .catch(error => {
+          console.log(error)
         });
-    }
+  }
 
   render() {
     return (
