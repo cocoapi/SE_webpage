@@ -7,7 +7,6 @@ import Buypage from './containers/Buypage';
 import Resister from './containers/Register';
 import Cart from './containers/Cart';
 import Product from './containers/Product';
-import LargeList from './containers/LargeList';
 import OrderedList from './containers/OrderedList';
 
 class Router extends Component {
@@ -53,14 +52,14 @@ class Router extends Component {
         <Route
           exact
           path="/:Console/ProductList" // Route /[Console_name]/[product_name]
-          component={LargeList}
+          component={Consoles}
         />
         <Route
           path="/:Console/ProductList/:ProductId"
           component={Product}
         />
         <Route
-          path="/:userid/OrderedList"
+          path="/OrderedList/:userid"
           component={OrderedList}
         />
       </div>

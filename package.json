@@ -2,6 +2,12 @@
   "name": "seproject",
   "version": "0.1.0",
   "private": true,
+  "proxy": {
+	"/api": {
+		"target": "http://localhost:3001/",
+		"ws": true
+	}
+  },
   "dependencies": {
     "antd": "^3.4.4",
     "axios": "^0.18.0",

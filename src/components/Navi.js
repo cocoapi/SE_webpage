@@ -51,7 +51,7 @@ class Navi extends Component {
 			{this.state.sticky === false ? 
 			<div style={{height:'50px', display:'flex', flexDirection:'row', borderBottom:'1px solid black'}} >
 				<div style={{width:'33%', margin:'4px'}}>
-					<Link to={{ pathname: '/PlayStation', state: { consoleName: 'PS' }}}> PS4 </Link>
+					<Link to={{ pathname: '/PlayStation', state: { consoleName: 'PlayStation' }}}> PS4 </Link>
 				</div>
 				<div style={{width:'33%', margin:'4px'}}>
 					<Link to={{ pathname: '/Nintendo', state: { consoleName: 'Nintendo' }}}> Nintendo </Link>

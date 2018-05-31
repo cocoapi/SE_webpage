@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Select, Button, Row, Col } from 'antd';
+import { Form, Input, Tooltip, Icon, Select, Button, Modal, Row, Col  } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
-
+import axios from 'axios';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -13,14 +13,17 @@ class RegistrationForm extends React.Component {
       autoCompleteResult: [],
       clicked: false,
       fulladdress: '',
+      postNumber: '',
     }
    this.callPost= this.callPost.bind(this);
   }
 
   getAddress = (data) => {
     const addr = data.address;
+    const code = data.postcode
     this.setState({
       fulladdress: addr,
+      postNumber: code,
     });
     console.log(this.state.fulladdress); 
     this.residenceWarn();
@@ -42,6 +45,22 @@ class RegistrationForm extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+		const args = [
+		]
+		axios.post('http://127.0.0.1:3001/users', {
+			email: values.email,
+			nickname: values.nickname,
+			phone: values.prefix + values.phone,
+			address: this.state.fulladdress + ' ' + values.residence2,
+			password: values.password,
+		})
+		.then(r => {
+			console.log(r)
+		})
+		.catch(e => {
+			console.log(e)
+		})
+		Modal.success({title:'회원가입 완료', content:'회원가입이 완료되었습니다.', onOk(){window.location.href='/Login'}})
       }
     });
   }
@@ -176,7 +195,7 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('residance', {
             rules: [{ required: true, message: '우편번호를 입력하세요!', whitespace: true }],
           })(
-            <Input />
+            <Input value={this.state.postNumber}/>
           )}
         </FormItem>
         <FormItem 
@@ -188,7 +207,7 @@ class RegistrationForm extends React.Component {
             rules: [{required: true, message: '거주지를 선택하세요!' }],
           })(
             <div onClick={this.callPost}>
-                  <Input value={this.state.fulladdress}></Input>
+                  <Input prefix='클릭 해주세요' value={this.state.fulladdress}></Input>
                  <div style={{position:'absolute', zIndex:100}}>
                   {
                     this.state.clicked ?
@@ -236,17 +255,23 @@ const WrappedRegistrationForm = Form.create()(RegistrationForm);
 class Register extends Component {
   render() {
     return (
-      <div>
-        <Row style={{marginTop:'50px', borderBottom:'1px solid black', paddingBottom:'5px', textAlign:'left'}}>
-            <Col span={6}><strong style={{fontSize:'30px'}}>주문/결제</strong></Col>
-        </Row>
-        <Row style={{paddingTop: '40px', paddingBottom:'10px', borderTop:'1px solid black', borderBottom:'1px solid black'}}>
-          <Col span={12} offset={4} >
-            <WrappedRegistrationForm/>
-          </Col>
-        </Row>
-      </div>
-    )}
+          <div style={{height:'1000px', width:'100%', margin:'auto', display:'flex', flexDirection:'column'}}>
+            <div style={{height: '20%', display:'flex', flexDirection:'column', fontFamily: "Comic Sans MS" , fontsize: "30px", backgroundColor: 'LightGray'}}>
+              <div style={{height: '40%'}}/>
+              <div style={{height: '20%'}}>
+                <h1>회원가입</h1>
+              </div>
+              <div style={{height: '40%'}}/>
+            </div>
+            <div style={{height: '55%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
+              <div style={{width: '30%'}}/>
+              <div style={{width: '40%', border: '1px solid gray', padding: '40px'}}>
+                <WrappedRegistrationForm style={{border: '1px soid gray'}} history={this.props.history}/>
+              </div>
+            </div>
+	        </div>
+    );
+  }
 }
 
 export default Register;
