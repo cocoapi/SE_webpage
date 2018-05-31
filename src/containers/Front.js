@@ -3,6 +3,7 @@ import { Row, Col } from 'antd';
 import axios from 'axios';
 import List from '../components/List';
 import Ads from '../components/Ads';
+import AddproductModal from '../components/AddproductModal';
 
 const subTitle = {
   borderBottom: '1px solid gray',
