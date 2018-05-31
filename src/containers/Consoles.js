@@ -25,7 +25,7 @@ class Consoles extends Component {
     super(props);
     this.state = {
       consoleName: props.location.state.consoleName,
-      products: null,
+      products: [],
       value: 0
     };
     //this.onChange= this.onChange.bind(this);
@@ -59,7 +59,6 @@ class Consoles extends Component {
   
   render() {
     return (
-      this.state.products == null?null:
       <div>
         <Row style={{marginTop:'50px', borderBottom:'1px solid black', paddingBottom:'5px', textAlign:'left'}}>
             <Col span={6}><strong style={{fontSize:'30px'}}>{this.state.consoleName}</strong></Col>
