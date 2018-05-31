@@ -60,7 +60,7 @@ class Router extends Component {
           component={Product}
         />
         <Route
-          path="/:userid/OrderedList"
+          path="/OrderedList/:userid"
           component={OrderedList}
         />
       </div>
