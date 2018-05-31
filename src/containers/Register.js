@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Select, Button, Modal } from 'antd';
+import { Form, Input, Tooltip, Icon, Select, Button, Modal, Row, Col  } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 import axios from 'axios';
 const FormItem = Form.Item;
@@ -181,6 +181,16 @@ class RegistrationForm extends React.Component {
         >
           {getFieldDecorator('nickname', {
             rules: [{ required: true, message: '닉네임을 입력하세요!', whitespace: true }],
+          })(
+            <Input />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label='우편번호'
+        >
+          {getFieldDecorator('residance', {
+            rules: [{ required: true, message: '우편번호를 입력하세요!', whitespace: true }],
           })(
             <Input />
           )}

@@ -1,30 +1,42 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from 'antd';
+import {Row, Col, Card} from 'antd';
+const { Meta } = Card;
 
 class List extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      products: this.props.products
+    } 
+  }
+
   render() {
+    const cardList = 
+     this.state.products.map((product, index) => {
+        return  (
+          <Col span={6} style={{padding:'30px'}}>
+            <Link to={product.platform + '/ProductList/' + product._id}>
+                <Card 
+                  hoverable
+                  style={{ width: '100%' }}
+                  cover={<img alt="example" src={'http://localhost:3001/products/image/1/'.concat(product._id)} />}
+                >
+                  <Meta
+                    title = {product.name}
+                    description = {product.price.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}
+                  />
+                  </Card>
+            </Link>
+          </Col>
+          )
+        }
+      )
+
     return (
-      <div style={{
- height: '300px', display: 'flex', flexDirection: 'row', padding: '8px',
-}}
-      >
-        <Link to={this.props.data + '/ProductList' + '/supermario'}>
-		{console.log(this.props.location)}
-          {this.props.data !== 'Nintendo' ?
-            <Card title="Card title" style={{ width: 200, height: 284 }}>
-              <p> title </p>
-              <p> price </p>
-            </Card>
-		  :
-            <Card title="슈퍼마리오" style={{ width: 200, height: 284 }}>
-              <p> '슈퍼마리오' <br />
-				'38000원'
-              </p>
-            </Card>
-		}
-        </Link>
-      </div>
+      <Row gutter={48} style={{marginTop:'40px'}}>
+          {cardList}
+      </Row>
     );
   }
 }
