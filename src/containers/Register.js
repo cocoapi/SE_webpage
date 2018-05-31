@@ -13,14 +13,17 @@ class RegistrationForm extends React.Component {
       autoCompleteResult: [],
       clicked: false,
       fulladdress: '',
+      postNumber: '',
     }
    this.callPost= this.callPost.bind(this);
   }
 
   getAddress = (data) => {
     const addr = data.address;
+    const code = data.postcode
     this.setState({
       fulladdress: addr,
+      postNumber: code,
     });
     console.log(this.state.fulladdress); 
     this.residenceWarn();
@@ -192,7 +195,7 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('residance', {
             rules: [{ required: true, message: '우편번호를 입력하세요!', whitespace: true }],
           })(
-            <Input />
+            <Input value={this.state.postNumber}/>
           )}
         </FormItem>
         <FormItem 
@@ -204,7 +207,7 @@ class RegistrationForm extends React.Component {
             rules: [{required: true, message: '거주지를 선택하세요!' }],
           })(
             <div onClick={this.callPost}>
-                  <Input value={this.state.fulladdress}></Input>
+                  <Input prefix='클릭 해주세요' value={this.state.fulladdress}></Input>
                  <div style={{position:'absolute', zIndex:100}}>
                   {
                     this.state.clicked ?
