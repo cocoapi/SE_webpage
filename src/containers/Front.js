@@ -3,6 +3,7 @@ import {Row, Col, Card, Pagination} from 'antd';
 import { Link } from 'react-router-dom';
 import List from '../components/List';
 import Ads from '../components/Ads';
+import AddproductModal from '../components/AddproductModal';
 import axios from 'axios';
 
 const subTitle = {
@@ -63,7 +64,9 @@ class Front extends Component {
 
   render() {
     return (
-      this.state.newProducts == null? null:
+      this.state.newProducts == null?
+      null
+      :
       <div>
         <Ads/>
         <Row style={subTitle}>

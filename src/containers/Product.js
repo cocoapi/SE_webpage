@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Modal, Row, Col, InputNumber } from 'antd';
 import { Link } from 'react-router-dom';
 import Review from '../components/Review';
-import ReviewModal from '../components/Modal';
+import ReviewModal from '../components/ReviewModal';
 import axios from 'axios';
 
 const dataSource ={
@@ -64,7 +64,10 @@ class Product extends Component {
         .then(res => {
           console.log(res);
           this.setState({product_info: res.data})     
-        });
+        })
+        .catch(error => {
+          console.log(error)
+        }); 
   }
 
   onChange = (value) =>{
