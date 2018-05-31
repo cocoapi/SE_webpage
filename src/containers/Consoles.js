@@ -46,6 +46,7 @@ class Consoles extends Component {
   componentDidMount() {
     axios.get(`http://localhost:3001/products/list/${this.state.consoleName}/title`)
       .then((res) => {
+        console.log(res.data);
         this.setState({ products: res.data });
       })
       .catch((error) => {
