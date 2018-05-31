@@ -8,6 +8,7 @@ import Resister from './containers/Register';
 import Cart from './containers/Cart';
 import Product from './containers/Product';
 import LargeList from './containers/LargeList';
+import OrderedList from './containers/OrderedList';
 
 class Router extends Component {
   render() {
@@ -55,8 +56,12 @@ class Router extends Component {
           component={LargeList}
         />
         <Route
-          path="/:Console/ProductList/:ProductName"
+          path="/:Console/ProductList/:ProductId"
           component={Product}
+        />
+        <Route
+          path="/:userid/OrderedList"
+          component={OrderedList}
         />
       </div>
     );
