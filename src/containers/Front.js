@@ -51,7 +51,7 @@ class Front extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3001/products')
+    axios.get('http://mjsong.iptime.org:3001/products')
       .then((res) => {
         console.log(res);
         this.setState({ newProducts: res.data });

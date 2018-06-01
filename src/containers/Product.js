@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Modal, Row, Col, InputNumber } from 'antd';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
+import axios from 'axios';
+import { addCart } from '../actions'
 import Review from '../components/Review';
 import ReviewModal from '../components/ReviewModal';
-import axios from 'axios';
-
-const dataSource ={
-  productName: 'PS4 히트맨 DEFINITIVE EDITION',
-  company: 'IO INTERACTIVE',
-  price: '62,000원',
-  date: '2018/05/23'
-}
 
 const reviews = [{
   email: "soondi@hanmail.net",
@@ -65,6 +60,9 @@ class Product extends Component {
     console.log('changed', value);
   }
 
+  onAddCart = () => {
+  }
+
   render() {
     return (
       <div>
@@ -72,7 +70,7 @@ class Product extends Component {
         <Col span={20} offset={2}>
           <Row type="flex" justify="space-around" style={{marginTop: '100px', marginBottom: '50px', paddingBottom: '10px', paddingTop: '10px', borderTop: '1px solid black', borderBottom: '1px solid black'}}>
             <Col span={8} style={{border: '1px solid black'}}>
-               <img src = {'http://localhost:3001/products/image/1/' + this.state.product_id} style={{width : '100%'}}/>
+               <img src = {'http://mjsong.iptime.org:3001/products/image/1/' + this.state.product_id} style={{width : '100%'}}/>
             </Col>
             <Col span={10} style={{padding: '25px'}}>
               <Row>
@@ -94,6 +92,7 @@ class Product extends Component {
                   <Button icon='credit-card' size='large' style={{marginRight:'10px'}}
                     onClick={()=>{this.props.history.push('/Buy')}}> 주문하기 </Button>
                           <Button icon='shopping-cart' size='large' onClick={() => {
+							  this.props.addCart(this.state.info);
                     this.setState({modalVisible: true})
                           }}> 장바구니 </Button>
                     <Modal
@@ -143,4 +142,10 @@ class Product extends Component {
   }
 }
 
-export default Product;
+const mapDispatchtoProps = (dispatch) => {
+	return {
+		addCart: (Product) => dispatch(addCart(Product)) 
+	}
+}
+
+export default connect(undefined, mapDispatchtoProps)(Product);

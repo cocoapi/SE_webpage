@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Button, Input, Icon } from 'antd';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 const { Column } = Table;
 
 const dataSource = [{
@@ -21,6 +21,7 @@ class Cart extends Component {
     super(props);
     this.state = {
       dataSource,
+	  Cart: props.Cart,
     };
     this.onClickUpMethod = this.onClickUpMethod.bind(this);
     this.onClickDownMethod = this.onClickDownMethod.bind(this);
@@ -113,4 +114,11 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+const mapStatetoProps = (state) => {
+	return{
+		Cart: state.Cart,
+	}
+}
+
+
+export default connect(mapStatetoProps)(Cart);

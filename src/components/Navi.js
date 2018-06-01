@@ -41,7 +41,7 @@ class Navi extends Component {
 				<Link style={{color:'black'}} to='/Login'> <Icon type='login'/>로그인 </Link>
 			}
 			<Link style={{color:'black'}} to='/Shopping_Cart'> <Icon type='shopping-cart'/>장바구니 </Link>
-		</div>
+			</div>
 			<div style={{height:'200px', display:'flex', flexDirection:'row'}}>
 				<div style={{width:'33%'}}/>
 				<div style={{width:'33%', overflow:'hidden'}}>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { setUser } from '../actions/index';
 
@@ -17,7 +18,13 @@ class Login extends Component {
         this.props.form.validateFields((err, values) => {
           if (!err) {
 						console.log('Received values of form: ', values);  
-						this.props.userLogin({userName:values.userName, password:values.password});
+						axios.post('http://mjsong.iptime.org:3001/users/login', {email: values.userName, password: values.password})
+							.then( r => {
+								this.props.userLogin(r.data);
+							})
+						.catch( e => {
+							console.log(e);
+						});
 						this.props.location.pathname === '/Buy' ? null : this.props.history.goBack();			
 						}
         });

@@ -51,7 +51,8 @@ class RegistrationForm extends React.Component {
 			email: values.email,
 			nickname: values.nickname,
 			phone: values.prefix + values.phone,
-			address: this.state.fulladdress + ' ' + values.residence2,
+			address: this.state.fulladdress,
+			address_detail: values.residence2,
 			post_code: this.state.postNumber,
 			password: values.password,
 		})

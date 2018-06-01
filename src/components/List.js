@@ -25,7 +25,7 @@ class List extends Component {
                 <Card 
                   hoverable
                   style={{ width: '100%' }}
-                  cover={<img alt="example" src={'http://localhost:3001/products/image/1/' + product._id} />}
+                  cover={<img alt="example" src={'http://mjsong.iptime.org:3001/products/image/1/' + product._id} />}
                 >
                   <Meta
                     title = {product.name}
