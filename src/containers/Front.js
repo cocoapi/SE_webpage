@@ -52,17 +52,17 @@ class Front extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3001/products/') // 출시일에 대해 내림차순
+    axios.get('http://mjsong.iptime.org:3001/products/') // 출시일에 대해 내림차순
       .then((res) => {
         console.log(res);
         var datas = res.data.slice(0,4);
-        this.setState({ newProducts: res.data });
+        this.setState({ newProducts: datas });
       })
       .catch((error) => {
         console.log(error);
       });
 
-      axios.get('http://localhost:3001/products/list/all/all/1/total_sell/-1') // 판매량에 대해 내림차순
+      axios.get('http://mjsong.iptime.org:3001/products/list/all/all/1/total_sell/-1') // 판매량에 대해 내림차순
       .then((res) => {
         console.log(res);
         var datas = res.data.slice(0,4);
