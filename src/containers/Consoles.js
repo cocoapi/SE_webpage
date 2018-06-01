@@ -47,7 +47,7 @@ class Consoles extends Component {
 
   componentDidMount() {
     if(this.state.catalog == undefined){
-      axios.get(`http://mjsong.iptime.org:3001/products/list/all/${this.state.consoleName}/1/release_date/-1`) // 특정 catalog에 대해 발매일에 대해 내림차순
+      axios.get(`http://mjsong.iptime.org:3001/products/list/${this.state.consoleName}/all/1/release_date/-1`) // 특정 catalog에 대해 발매일에 대해 내림차순
         .then((res) => {
           console.log(res.data);
           var datas = res.data.slice(0, 4);
@@ -57,7 +57,7 @@ class Consoles extends Component {
           console.log(error);
         });
 
-        axios.get(`http://mjsong.iptime.org:3001/products/list/all/${this.state.consoleName}/1/total_sell/-1`) // 특정 platform에 대해 판매량에 대해 내림차순
+        axios.get(`http://mjsong.iptime.org:3001/products/list/${this.state.consoleName}/all/1/total_sell/-1`) // 특정 platform에 대해 판매량에 대해 내림차순
         .then((res) => {
           console.log(res.data);
           var datas = res.data.slice(0, 4);
@@ -67,6 +67,13 @@ class Consoles extends Component {
           console.log(error);
         });
     }
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      catalog: nextProps.location.state.catalog,
+      consoleName: nextProps.location.state.consoleName
+    })
   }
 
   render() {

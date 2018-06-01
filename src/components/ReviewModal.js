@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Modal, Button, Rate, Input, Row, Col } from 'antd';
+import axios from 'axios';
 const { TextArea } = Input;
 
 class ReviewModal extends Component{
     constructor(props) {
       super(props);
       this.state = {
+        user: props.user,
+        title:'',
+        content:'',
+        rate:0,
+        product_id: props.product_id
       };
     }
 
@@ -19,6 +26,19 @@ class ReviewModal extends Component{
         });
       }
       handleOk = () => {
+        axios.post(`http://mjsong.iptime.org:3001/products/review/${this.state.product_id}`, {
+            title: this.state.title,
+            email: this.props.user.email,
+            content: this.state.content,
+            rate: this.state.rate
+        })
+        .then(r => {
+          console.log(r)
+        })
+        .catch(e => {
+          console.log(e)
+        })        
+
         this.setState({ loading: true });
         setTimeout(() => {
           this.setState({ loading: false, visible: false });
@@ -26,6 +46,21 @@ class ReviewModal extends Component{
       }
       handleCancel = () => {
         this.setState({ visible: false });
+      }
+
+      onChangeRate = (value) => {
+          console.log(value)
+          this.setState({rate: value})
+      }
+
+      onTitleChange = (event) => {
+        console.log(event.target.value);
+        this.setState({title: event.target.value})
+      }
+
+      onContentChange = (event) => {
+        console.log(event.target.value);
+        this.setState({content: event.target.value})
       }
 
       render() {
@@ -49,11 +84,11 @@ class ReviewModal extends Component{
             >
               <Row>
                 <p>Title</p>
-                <p><Input/></p>
+                <p><Input onChange={this.onTitleChange}/></p>
                 <p>Contents</p>
-                <p><TextArea rows={4}/></p>
+                <p><TextArea rows={4} onChange={this.onContentChange}/></p>
                 <p>Rating</p>
-                <p><Rate/></p>
+                <p><Rate onChange={this.onChangeRate}/></p>
               </Row>
             </Modal>
           </div>
@@ -62,4 +97,10 @@ class ReviewModal extends Component{
  }
 
 
-export default ReviewModal;
+ const mapStateToProps = (state) => {
+	return {
+		user: state.currentUser,
+	}
+}
+
+export default connect(mapStateToProps)(ReviewModal);

@@ -20,13 +20,13 @@ class LargeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
+      value: '',
       products: []
     };
   }
 
   componentDidMount(){
-      axios.get(`http://localhost:3001/products/${this.props.consoleName}/${this.props.catalog}/1`)
+      axios.get(`http://mjsong.iptime.org:3001/products/list/${this.props.consoleName}/${this.props.catalog.toLowerCase()}/1`)
         .then((res) => {
           console.log(res);
           this.setState({ products: res.data });
@@ -36,19 +36,26 @@ class LargeList extends Component {
         });
   }
 
+  componentWillReceiveProps(nextProps){
+      axios.get(`http://mjsong.iptime.org:3001/products/list/${nextProps.consoleName}/${nextProps.catalog.toLowerCase()}/1`)
+      .then((res) => {
+        console.log(res);
+        this.setState({ products: res.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   onChangeRadio = (e) => { // radio onchange
     console.log('radio checked', e.target.value);
-    if(e.target.value === 1){
       this.setState({
         value: e.target.value,
       });
-    }
   }
 
   onChangePage = (page, pageSize) => {
-      switch(Number(this.state.value)){ // radio check 어디에?
-        case 0: //radie check 안함
-            axios.get(`http://localhost:3001/products/${this.props.consoleName}/${this.props.catalog}/${page}`)
+            axios.get(`http://mjsong.iptime.org:3001/products/list/${this.props.consoleName}/${this.props.catalog.toLowerCase()}/${page}`+this.state.value)
             .then((res) => {
               console.log(res);
               this.setState({ products: res.data });
@@ -56,45 +63,19 @@ class LargeList extends Component {
             .catch((error) => {
               console.log(error);
             });       
-        case 1: // 낮은 가격순
-            axios.get(`http://localhost:3001/products/${this.props.consoleName}/${this.props.catalog}/${page}/price/1`)
-            .then((res) => {
-              console.log(res);
-              this.setState({ products: res.data });
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        case 2: // 높은 가격순
-            axios.get(`http://localhost:3001/products/${this.props.consoleName}/${this.props.catalog}/${page}/price/-1`)
-            .then((res) => {
-              console.log(res);
-              this.setState({ products: res.data });
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        case 3: // 최근 등록순
-            axios.get(`http://localhost:3001/products/${this.props.consoleName}/${this.props.catalog}/${page}/release_date/-1`)
-            .then((res) => {
-              console.log(res);
-              this.setState({ products: res.data });
-            })
-            .catch((error) => {
-              console.log(error);
-            });
     }
-  }
+  
 
   render() {
+    console.log(this.state.products);
     return (
       <div>
         <Row>
           <Col span={6} offset={18}>
             <RadioGroup onChange={this.onChangeRadio} value={this.state.value}>
-              <Radio value={1}>낮은 가격순</Radio>
-              <Radio value={2}>높은 가격순</Radio>
-              <Radio value={3}>최근 등록순</Radio>
+              <Radio value='/price/1'>낮은 가격순</Radio>
+              <Radio value='/price/-1'>높은 가격순</Radio>
+              <Radio value='/release_date/-1'>최근 등록순</Radio>
             </RadioGroup>       
           </Col>
         </Row>               

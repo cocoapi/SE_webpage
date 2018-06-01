@@ -10,6 +10,10 @@ class Review extends Component{
       };
     }
 
+    componentWillReceiveProps(nextProps){
+      this.setState({reviews: nextProps.reviews});
+    }
+
     render(){
       const reviewList = this.state.reviews.map( (review, index) => {
         return(

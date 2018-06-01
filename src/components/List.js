@@ -13,15 +13,17 @@ class List extends Component {
 
   componentWillReceiveProps(nextProps){
     console.log(nextProps);
-		this.setState({products: nextProps.products});
+    this.setState({products: nextProps.products});
+  
   }
   
   render() {
     const cardList = 
      this.state.products.map((product, index) => {
+       console.log(product.platform);
         return  (
           <Col span={6} style={{padding:'30px'}}>
-            <Link to={{pathname: product.platform + '/ProductList/' + product._id, state: {info: product}}}>
+            <Link to={{pathname: '/' + product.platform + '/ProductList/' + product._id, state: {info: product}}}>
                 <Card 
                   hoverable
                   style={{ width: '100%' }}
