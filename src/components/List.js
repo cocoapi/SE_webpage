@@ -7,20 +7,25 @@ class List extends Component {
   constructor(props){
     super(props);
     this.state = {
-      products: this.props.products
+      products: props.products
     } 
   }
 
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps);
+		this.setState({products: nextProps.products});
+  }
+  
   render() {
     const cardList = 
      this.state.products.map((product, index) => {
         return  (
           <Col span={6} style={{padding:'30px'}}>
-            <Link to={product.platform + '/ProductList/' + product._id}>
+            <Link to={{pathname: product.platform + '/ProductList/' + product._id, state: {info: product}}}>
                 <Card 
                   hoverable
                   style={{ width: '100%' }}
-                  cover={<img alt="example" src={'http://localhost:3001/products/image/1/'.concat(product._id)} />}
+                  cover={<img alt="example" src={'http://localhost:3001/products/image/1/' + product._id} />}
                 >
                   <Meta
                     title = {product.name}

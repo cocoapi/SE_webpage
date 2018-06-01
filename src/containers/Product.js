@@ -52,22 +52,13 @@ class Product extends Component {
     this.state = {
       Quantity: 0,
 	    modalVisible: false,
-      product_id: this.props.match.params.ProductId,
-      product_info: null,
+      product_id: props.match.params.ProductId,
+      info: props.location.state.info,
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0)
-
-    axios.get('http://localhost:3001/products/product/' + this.state.product_id)
-        .then(res => {
-          console.log(res);
-          this.setState({product_info: res.data})     
-        })
-        .catch(error => {
-          console.log(error)
-        }); 
   }
 
   onChange = (value) =>{
@@ -75,9 +66,7 @@ class Product extends Component {
   }
 
   render() {
-    console.log(this.state.product_id)
     return (
-      this.state.product_info == null? null: 
       <div>
         <Row>
         <Col span={20} offset={2}>
@@ -87,16 +76,16 @@ class Product extends Component {
             </Col>
             <Col span={10} style={{padding: '25px'}}>
               <Row>
-                <h1 style={{borderBottom:'1px solid black'}}> {this.state.product_info.name} </h1>
+                <h1 style={{borderBottom:'1px solid black'}}> {this.state.info.name} </h1>
               </Row>
               <Row>
-                제조사: {this.state.product_info.provider}
+                제조사: {this.state.info.provider}
               </Row>
               <Row style={{marginTop:'40px', fontSize:'20px'}}>
-                출시일: {this.state.product_info.release_date.slice(0, 10)}
+                출시일: {this.state.info.release_date.slice(0, 10)}
               </Row>
               <Row style={{marginTop:'100px', fontSize:'20px'}}>
-                가격: {this.state.product_info.price.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}원
+                가격: {this.state.info.price.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}원
               </Row>
               <Row style={{marginTop:'40px', fontSize:'20px'}}>
                 수량:  <InputNumber min={1} max={99} defaultValue={1} size='medium'/>
