@@ -45,7 +45,7 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Quantity: 0,
+      Quantity: 1,
 	    modalVisible: false,
       product_id: props.match.params.ProductId,
       info: props.location.state.info,
@@ -86,13 +86,16 @@ class Product extends Component {
                 가격: {this.state.info.price.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}원
               </Row>
               <Row style={{marginTop:'40px', fontSize:'20px'}}>
-                수량:  <InputNumber min={1} max={99} defaultValue={1} size='medium'/>
+                수량:  <InputNumber min={1} max={99} defaultValue={1} size='medium' onChange={(value) => {this.setState({Quantity: value})}}/>
               </Row>
               <Row style={{marginTop:'60px'}}>
                   <Button icon='credit-card' size='large' style={{marginRight:'10px'}}
-                    onClick={()=>{this.props.history.push('/Buy')}}> 주문하기 </Button>
+                    onClick={()=>{
+						this.props.addCart({...this.state.info, quantity: this.state.Quantity});
+						this.props.history.push('/Buy')
+					}}> 주문하기 </Button>
                           <Button icon='shopping-cart' size='large' onClick={() => {
-							  this.props.addCart(this.state.info);
+							  this.props.addCart({...this.state.info, quantity: this.state.Quantity});
                     this.setState({modalVisible: true})
                           }}> 장바구니 </Button>
                     <Modal

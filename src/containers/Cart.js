@@ -47,7 +47,8 @@ class Cart extends Component {
   render() {
     return (
       <div style={{ height: '1000px', display: 'flex', flexDirection: 'column' }}>
-        <h2 style={{ marginTop: '13px' }}>Shopping Cart</h2>
+	  {console.log(this.state.Cart)}  
+	  <h2 style={{ marginTop: '13px' }}>Shopping Cart</h2>
         <Table
           dataSource={this.state.dataSource}
           pagination={false}

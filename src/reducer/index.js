@@ -24,7 +24,8 @@ const InitialCart = {
 const Cart = (state = InitialCart, action) => {
   switch (action.type) {
     case 'ADD_CART':
-      return { ...state, Cart: [...Cart, action.payload.obj] };
+		state.Cart.push(action.payload.obj);
+      return { ...state };
     case 'TRUNK_CART':
       return { ...state, Cart: [] };
     default:
