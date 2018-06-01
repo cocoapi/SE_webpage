@@ -117,7 +117,7 @@ class Product extends Component {
           </Row>
           <Row>
             <Col span={24}>
-
+            <img src = {'http://mjsong.iptime.org:3001/products/image/2/' + this.state.product_id}/>
             </Col>
           </Row>
           <Row style={subTitle}>
@@ -133,7 +133,7 @@ class Product extends Component {
               <Review reviews={reviews}/>
               <Row style={{paddingTop:'10px'}}>
                 <Col span = {4} offset={20}>
-                  <ReviewModal/>
+                  <ReviewModal product_id={this.state.product_id}/>
                 </Col>
               </Row>
             </Col>
