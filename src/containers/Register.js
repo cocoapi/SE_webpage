@@ -47,11 +47,12 @@ class RegistrationForm extends React.Component {
         console.log('Received values of form: ', values);
 		const args = [
 		]
-		axios.post('http://127.0.0.1:3001/users', {
+		axios.post('http://mjsong.iptime.org:3001/users', {
 			email: values.email,
 			nickname: values.nickname,
 			phone: values.prefix + values.phone,
 			address: this.state.fulladdress + ' ' + values.residence2,
+			post_code: this.state.postNumber,
 			password: values.password,
 		})
 		.then(r => {
