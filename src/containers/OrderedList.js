@@ -14,7 +14,7 @@ class OrderedList extends React.Component {
                     </Row>
                     <Col span={20} offset={2}>
                         <Row style={{paddingTop:'10px', paddingBottom:'10px', borderTop:'1px solid black', borderBottom:'1px solid black', backgroundColor:'WhiteSmoke'}}>
-                            <Col span={5} style={{fontSize:'20px', fontWeight: 'bold'}}>
+                           <Col span={5} style={{fontSize:'20px', fontWeight: 'bold'}}>
                                 2018.03.22
                             </Col>
                         </Row>
