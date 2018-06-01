@@ -8,6 +8,7 @@ import Ads from '../components/Ads';
 import PSimg from '../media/resource/PS.gif';
 import XBOXimg from '../media/resource/XBOX.gif';
 import NINTENDOimg from '../media/resource/NINTENDO.gif';
+import Subtitle from '../components/Subtitle';
 
 const RadioGroup = Radio.Group;
 
@@ -29,7 +30,8 @@ class Consoles extends Component {
       consoleName: props.location.state.consoleName,
       catalog: props.location.state.catalog,
       consoleImg: this.props.location.state.consoleName === 'PlayStation' ? PSimg : this.props.location.state.consoleName === 'XBOX' ? XBOXimg : NINTENDOimg,
-      products: [],
+      newProducts: [],
+      bestProducts: []
     };
     // this.onChange= this.onChange.bind(this);
   }
@@ -44,14 +46,27 @@ class Consoles extends Component {
   // }
 
   componentDidMount() {
-    axios.get(`http://mjsong.iptime.org:3001/products/list/${this.state.consoleName}/title`)
-      .then((res) => {
-        console.log(res.data);
-        this.setState({ products: res.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if(this.state.catalog == undefined){
+      axios.get(`http://mjsong.iptime.org:3001/products/list/all/${this.state.consoleName}/1/release_date/-1`) // 특정 catalog에 대해 발매일에 대해 내림차순
+        .then((res) => {
+          console.log(res.data);
+          var datas = res.data.slice(0, 4);
+          this.setState({ newProducts: datas });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+        axios.get(`http://mjsong.iptime.org:3001/products/list/all/${this.state.consoleName}/1/total_sell/-1`) // 특정 platform에 대해 판매량에 대해 내림차순
+        .then((res) => {
+          console.log(res.data);
+          var datas = res.data.slice(0, 4);
+          this.setState({ bestProducts: datas });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   render() {
@@ -83,8 +98,14 @@ marginTop: '50px', borderBottom: '1px solid black', paddingBottom: '5px', textAl
         </Row>
         {
             this.state.catalog === undefined ?
-              <List products={this.state.products} /> :
-              <LargeList />
+              <div>
+              <Subtitle title='New Products'/>
+              <List products={this.state.newProducts} /> 
+              <Subtitle title='Best Products'/>
+              <List products={this.state.bestProducts} />
+              </div>
+              :
+              <LargeList catalog={this.state.catalog} consoleName={this.state.consoleName}/>
           }
       </div>
     );

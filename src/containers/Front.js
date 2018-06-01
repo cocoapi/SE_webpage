@@ -4,6 +4,7 @@ import axios from 'axios';
 import List from '../components/List';
 import Ads from '../components/Ads';
 import AddproductModal from '../components/AddproductModal';
+import Subtitle from '../components/Subtitle'
 
 const subTitle = {
   borderBottom: '1px solid gray',
@@ -51,10 +52,21 @@ class Front extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://mjsong.iptime.org:3001/products')
+    axios.get('http://mjsong.iptime.org:3001/products/list/all/all/1/release_date/-1') // 출시일에 대해 내림차순
       .then((res) => {
         console.log(res);
-        this.setState({ newProducts: res.data });
+        var datas = res.data.slice(0,4);
+        this.setState({ newProducts: datas });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      axios.get('http://mjsong.iptime.org:3001/products/list/all/all/1/total_sell/-1') // 판매량에 대해 내림차순
+      .then((res) => {
+        console.log(res);
+        var datas = res.data.slice(0,4);
+        this.setState({ bestProducts: datas });
       })
       .catch((error) => {
         console.log(error);
@@ -65,17 +77,9 @@ class Front extends Component {
     return (
       <div>
         <Ads />
-        <Row style={subTitle}>
-          <Col span={4}>
-              New Products
-          </Col>
-        </Row>
+        <Subtitle title='New products'/>
         <List products={this.state.newProducts} />
-        <Row style={subTitle}>
-          <Col span={4}>
-              Best Items
-          </Col>
-        </Row>
+        <Subtitle title='Best Products'/>
         <List products={this.state.bestProducts} />
       </div>
     );

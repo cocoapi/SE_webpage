@@ -59,7 +59,7 @@ class Login extends Component {
 								Log in
 							</Button> 
 							<br />
-							<a className="login-form-forgot" href="">Forgot password 	</a>
+							<a className="login-form-forgot" href="">Forgot password</a>
 							Or <a href="/Resistration">register now!</a>
 						</FormItem>
 					</Form>
