@@ -1,21 +1,51 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {
     Form, Select, InputNumber, Switch, Radio,
     Slider, Button, Upload, Icon, Rate, DatePicker, Input
   } from 'antd';
-  import '../App.css'
-  const FormItem = Form.Item;
-  const Option = Select.Option;
-  const RadioButton = Radio.Button;
-  const RadioGroup = Radio.Group;
-  
+import '../App.css'
+
+
+const FormItem = Form.Item;
+const Option = Select.Option;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
+
+
   class ProductForm extends React.Component {
+    constructor(props){
+			super(props);
+			this.state = {
+        image: {},
+        subImage: {}
+			}
+    }
+    
     handleSubmit = (e) => {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values);
         }
+        const fd = new FormData();
+        fd.append('img', this.state.image, this.state.image.name);
+        fd.append('imgSub', this.state.subImage, this.state.subImage.name);
+        fd.append('name', values.Name);
+        fd.append('catalog', values.Catalog);
+        fd.append('platform', values.Platform);
+        fd.append('provider', values.Provider);
+        fd.append('release_date', values.Release_date);
+        fd.append('price', values.Price);
+        fd.append('stock', values.Stock);
+
+        axios.post('http://mjsong.iptime.org:3001/products/product', fd)
+              .then(r => {
+                console.log(r)
+              })
+              .catch(e => {
+                console.log(e)
+              })
       });
     }
     normFile = (e) => {
@@ -25,6 +55,16 @@ import {
       }
       return e && e.fileList;
     }
+
+    imageHandler = (event) => {
+      console.log(event.target.files[0])
+      this.setState({image : event.target.files[0]});
+    }
+
+    subImageHandler = (event) => {
+      this.setState({subImage : event.target.files[0]});
+    }
+
     render() {
       const { getFieldDecorator } = this.props.form;
       const formItemLayout = {
@@ -51,9 +91,9 @@ import {
           >
             {getFieldDecorator('Platform')(
               <RadioGroup>
-                <Radio value="a">PS</Radio>
-                <Radio value="b">NINTENDO</Radio>
-                <Radio value="c">XBOX</Radio>
+                <Radio value="PlayStation">PS</Radio>
+                <Radio value="NINTENDO">NINTENDO</Radio>
+                <Radio value="XBOX">XBOX</Radio>
               </RadioGroup>
             )}
           </FormItem>
@@ -63,8 +103,8 @@ import {
           >
             {getFieldDecorator('Catalog')(
               <RadioGroup>
-                <RadioButton value="a">하드웨어</RadioButton>
-                <RadioButton value="b">타이틀</RadioButton>
+                <RadioButton value="hardware">하드웨어</RadioButton>
+                <RadioButton value="title">타이틀</RadioButton>
               </RadioGroup>
             )}
           </FormItem>
@@ -74,7 +114,7 @@ import {
           >
             {getFieldDecorator('Provider', {
               rules: [
-                { message: 'Please select your favourite colors!', type: 'array' },
+                { message: 'Please select your favourite colors!'},
               ],
             })(
               <Input/>
@@ -105,29 +145,44 @@ import {
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label="upload"
+            label="Stock"
+          >
+            {getFieldDecorator('Stock', {
+              rules: [
+                { message: '재고를 입력하세요' },
+              ],
+            })(
+              <Input/>
+            )}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Image"
           >
             {getFieldDecorator('upload', {
-              valuePropName: 'fileList',
-              getValueFromEvent: this.normFile,
             })(
-              <Upload name="logo" action="/upload.do" listType="picture">
-                <Button>
-                  <Icon type="upload" /> Click to upload
-                </Button>
-              </Upload>
+              <input type='file' onChange={this.imageHandler}/>
+            )}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Sub Image"
+          >
+            {getFieldDecorator('upload2', {
+            })(
+              <input type='file' onChange={this.subImageHandler}/>
             )}
           </FormItem>
           <FormItem
             wrapperCol={{ span: 12, offset: 6 }}
           >
-            <Button type="primary" htmlType="submit">Submit</Button>
+            <Button type="primary" htmlType="submit" onClick={this.props.handleOk} loading={this.props.loading}>Submit</Button>
           </FormItem>
         </Form>
       );
     }
   }
 
-  const AddproductForm = Form.create()(ProductForm);
+  const AddProductForm = Form.create()(ProductForm);
 
-  export default AddproductForm;
+  export default AddProductForm;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Modal, Button, Rate, Input, Row, Col } from 'antd';
-import AddproductForm  from '../components/AddproductForm'
+import AddProductForm  from '../components/AddProductForm'
 const { TextArea } = Input;
 
-class AddproductModal extends Component{
+class AddProductModal extends Component{
     constructor(props) {
       super(props);
       this.state = {
@@ -29,12 +29,13 @@ class AddproductModal extends Component{
         this.setState({ visible: false });
       }
 
+      
       render() {
         const { visible, loading } = this.state;
         return (
           <div>
             <Button type="primary" onClick={this.showModal}>
-              작성하기
+              상품추가
             </Button>
             <Modal 
               visible={visible}
@@ -42,15 +43,9 @@ class AddproductModal extends Component{
               onOk={this.handleOk}
               onCancel={this.handleCancel}
               width = '500px'
-            //   footer={[
-            //     <Button key="back" onClick={this.handleCancel}>취소</Button>,
-            //     <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-            //       추가
-            //     </Button>,
-            //   ]}
+              footer={null}
             >
-              
-                <AddproductForm/>
+                <AddProductForm handleOk={this.handleOk} loading={this.state.loading}/>
             
             </Modal>
           </div>
@@ -59,4 +54,4 @@ class AddproductModal extends Component{
  }
 
 
-export default AddproductModal;
+export default AddProductModal;
