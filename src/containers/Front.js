@@ -3,8 +3,9 @@ import { Row, Col } from 'antd';
 import axios from 'axios';
 import List from '../components/List';
 import Ads from '../components/Ads';
-import AddproductModal from '../components/AddproductModal';
+import AddProductModal from '../components/AddProductModal';
 import Subtitle from '../components/Subtitle'
+import AddProductForm from '../components/AddProductForm';
 
 const subTitle = {
   borderBottom: '1px solid gray',
@@ -55,7 +56,7 @@ class Front extends Component {
     axios.get('http://mjsong.iptime.org:3001/products/list/all/all/1/release_date/-1') // 출시일에 대해 내림차순
       .then((res) => {
         console.log(res);
-        var datas = res.data.slice(0,4);
+        var datas = res.data.slice(0,4); 
         this.setState({ newProducts: datas });
       })
       .catch((error) => {

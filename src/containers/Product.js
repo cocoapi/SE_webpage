@@ -49,11 +49,21 @@ class Product extends Component {
 	    modalVisible: false,
       product_id: props.match.params.ProductId,
       info: props.location.state.info,
+      reviews: []
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0)
+
+    axios.get(`http://mjsong.iptime.org:3001/review/${this.state.product_id}`)
+    .then(res => {
+      console.log(res)
+      this.setState({reviews: res.data})
+    })
+    .catch(e => {
+      console.log(e)
+    })
   }
 
   onChange = (value) =>{
@@ -61,6 +71,10 @@ class Product extends Component {
   }
 
   onAddCart = () => {
+  }
+
+  reviewAdded = (data) => {
+    this.setState({reviews: this.state.reviews.push(data)})
   }
 
   render() {
@@ -133,7 +147,7 @@ class Product extends Component {
               <Review reviews={reviews}/>
               <Row style={{paddingTop:'10px'}}>
                 <Col span = {4} offset={20}>
-                  <ReviewModal product_id={this.state.product_id}/>
+                  <ReviewModal product_id={this.state.product_id} reviews={this.state.info.reviews} reviewAdded={this.reviewAdded}/>
                 </Col>
               </Row>
             </Col>

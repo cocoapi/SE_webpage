@@ -34,11 +34,12 @@ class ReviewModal extends Component{
         })
         .then(r => {
           console.log(r)
+          this.props.reviewAdded(r);
         })
         .catch(e => {
           console.log(e)
         })        
-
+        
         this.setState({ loading: true });
         setTimeout(() => {
           this.setState({ loading: false, visible: false });
