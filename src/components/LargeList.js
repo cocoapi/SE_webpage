@@ -47,11 +47,17 @@ class LargeList extends Component {
       });
   }
 
+  currentPage = (page) => {
+    return page;
+  }
+ 
   onChangeRadio = (e) => { // radio onchange
     console.log('radio checked', e.target.value);
       this.setState({
         value: e.target.value,
       });
+      this.currentPage(1);
+      this.onChangePage(1);
   }
 
   onChangePage = (page, pageSize) => {
@@ -65,7 +71,6 @@ class LargeList extends Component {
             });       
     }
   
-
   render() {
     console.log(this.state.products);
     return (
@@ -79,9 +84,13 @@ class LargeList extends Component {
             </RadioGroup>       
           </Col>
         </Row>               
-        <List products={this.state.products} />
+        {
+          this.state.products.length === 0 ? 
+          <Row> 상품이 없습니다 </Row> :
+          <List products={this.state.products} />
+        }
         <Row style={{marginTop:'50px'}}>
-          <Pagination defaultCurrent={1} total={50} onChange={this.onChangePage}/>
+          <Pagination defaultCurrent={1} current={this.currentPage} total={50} onChange={this.onChangePage}/>
         </Row>  
       </div>
     );
