@@ -1,5 +1,6 @@
 const SETUSER = 'SET_USER';
 const ADDCART = 'ADD_CART';
+const UPDATECART = 'UPDATE_CART';
 
 export const setUser = user => (dispatch) => {
   dispatch({
@@ -21,6 +22,16 @@ export const addCart = obj => (dispatch) => {
       obj,
     },
   });
+};
+
+export const updateCart = (key, quantity) => (dispatch) => {
+	dispatch({
+		type: UPDATECART,
+		payload:{
+			key,
+			quantity,
+		},
+	});
 };
 
 export const trunkCart = () => (dispatch) => {
