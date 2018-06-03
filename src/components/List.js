@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {Row, Col, Card} from 'antd';
+import {Row, Col, Card, Avatar, Icon} from 'antd';
+import axios from 'axios';
+import UpdateProductModal from '../components/UpdateProductModal'
 const { Meta } = Card;
 
 class List extends Component {
@@ -16,6 +18,35 @@ class List extends Component {
     this.setState({products: nextProps.products});
   
   }
+
+  onClickDelete = (id, e) => {
+    e.preventDefault();
+    console.log(id);
+
+    axios.delete(`http://mjsong.iptime.org:3001/products/product/${id}`)
+          .then((res) => {
+            console.log(res);
+
+            var prodRemoved = this.state.products.filter( (element) => {
+              return element._id !== id
+            })
+        
+            this.setState({products: prodRemoved})
+          })
+          .catch((e) => {
+            console.log(e);
+          })
+  }
+
+  modalOnClick = (e) => {
+    e.preventDefault();
+  }
+  // onClickUpdate = (id, e) => {
+  //   e.preventDefault();
+  //   console.log(id);
+  //   return <AddProductModal/>
+  // }
+  
   
   render() {
     const cardList = 
@@ -28,12 +59,13 @@ class List extends Component {
                   hoverable
                   style={{ width: '100%' }}
                   cover={<img alt="example" src={'http://mjsong.iptime.org:3001/products/image/1/' + product._id} />}
+                  actions={[<div onClick={(e) => this.modalOnClick(e)}><UpdateProductModal product={product}/></div>,<Icon type='close' onClick={(e) => this.onClickDelete(product._id, e)}/>]} // 관리자권한 일 때만
                 >
-                  <Meta
-                    title = {product.name}
-                    description = {product.price.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}
-                  />
-                  </Card>
+                <Meta
+                  title = {product.name} 
+                  description = {product.price.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}
+                />
+                </Card>
             </Link>
           </Col>
           )
