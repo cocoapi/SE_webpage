@@ -7,31 +7,31 @@ import { addCart } from '../actions'
 import Review from '../components/Review';
 import ReviewModal from '../components/ReviewModal';
 
-const reviews = [{
-  email: "soondi@hanmail.net",
-  title: "재미있네요",
-  platform: "PS",
-  content: "짱짱",
-  rate: 5
-},{
-  email: "hihi@naver.com",
-  title: "와우",
-  platform: "PS",
-  content: "좋아요",
-  rate: 5
-},{
-  email: "dododo@hotmail.net",
-  title: "재미없어요",
-  platform: "PS",
-  content: "별로네요",
-  rate: 2  
-},{
-  email: "wdwdwss",
-  title: "재미없어요",
-  platform: "PS",
-  content: "별로네요",
-  rate: 3
-}]
+// const reviews = [{
+//   email: "soondi@hanmail.net",
+//   title: "재미있네요",
+//   platform: "PS",
+//   content: "짱짱",
+//   rate: 5
+// },{
+//   email: "hihi@naver.com",
+//   title: "와우",
+//   platform: "PS",
+//   content: "좋아요",
+//   rate: 5
+// },{
+//   email: "dododo@hotmail.net",
+//   title: "재미없어요",
+//   platform: "PS",
+//   content: "별로네요",
+//   rate: 2  
+// },{
+//   email: "wdwdwss",
+//   title: "재미없어요",
+//   platform: "PS",
+//   content: "별로네요",
+//   rate: 3
+// }]
 
 const subTitle = {
   borderBottom: "1px solid gray", 
@@ -49,11 +49,21 @@ class Product extends Component {
 	    modalVisible: false,
       product_id: props.match.params.ProductId,
       info: props.location.state.info,
+      reviews: []
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0)
+
+    axios.get(`http://mjsong.iptime.org:3001/products/review/${this.state.product_id}`)
+    .then(res => {
+      console.log(res)
+      this.setState({reviews: res.data})
+    })
+    .catch(e => {
+      console.log(e)
+    })
   }
 
   onChange = (value) =>{
@@ -63,13 +73,24 @@ class Product extends Component {
   onAddCart = () => {
   }
 
+  reviewAdded = () => {
+    axios.get(`http://mjsong.iptime.org:3001/products/review/${this.state.product_id}`)
+          .then(res => {
+            console.log(res)
+            this.setState({reviews: res.data})
+          })
+          .catch(e => {
+            console.log(e)
+          })
+  }
+
   render() {
     return (
       <div>
         <Row>
         <Col span={20} offset={2}>
           <Row type="flex" justify="space-around" style={{marginTop: '100px', marginBottom: '50px', paddingBottom: '10px', paddingTop: '10px', borderTop: '1px solid black', borderBottom: '1px solid black'}}>
-            <Col span={8} style={{border: '1px solid black'}}>
+            <Col span={8}>
                <img src = {'http://mjsong.iptime.org:3001/products/image/1/' + this.state.product_id} style={{width : '100%'}}/>
             </Col>
             <Col span={10} style={{padding: '25px'}}>
@@ -117,7 +138,7 @@ class Product extends Component {
           </Row>
           <Row>
             <Col span={24}>
-
+            <img src = {'http://mjsong.iptime.org:3001/products/image/2/' + this.state.product_id}/>
             </Col>
           </Row>
           <Row style={subTitle}>
@@ -130,10 +151,10 @@ class Product extends Component {
           </Row>
           <Row>
             <Col span={18} offset={3}>
-              <Review reviews={reviews}/>
+              <Review reviews={this.state.reviews}/>
               <Row style={{paddingTop:'10px'}}>
                 <Col span = {4} offset={20}>
-                  <ReviewModal/>
+                  <ReviewModal product_id={this.state.product_id} reviews={this.state.info.reviews} reviewAdded={this.reviewAdded}/>
                 </Col>
               </Row>
             </Col>

@@ -4,24 +4,26 @@ import {
     Form, Select, InputNumber, Switch, Radio,
     Slider, Button, Upload, Icon, Rate, DatePicker, Input
   } from 'antd';
+import moment from 'moment';
 import '../App.css'
-
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
+const dateFormat = 'YYYY/MM/DD';  
 
 
-  class ProductForm extends React.Component {
+  class UpProductForm extends React.Component {
     constructor(props){
 			super(props);
-			this.state = {
-        image: {},
-        subImage: {}
+			this.state = {    
+                image: {},
+                subImage: {}
 			}
     }
-    
+
+
     handleSubmit = (e) => {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
@@ -29,8 +31,6 @@ const RadioGroup = Radio.Group;
           console.log('Received values of form: ', values);
         }
         const fd = new FormData();
-        fd.append('img', this.state.image, this.state.image.name);
-        fd.append('imgSub', this.state.subImage, this.state.subImage.name);
         fd.append('name', values.Name);
         fd.append('catalog', values.Catalog);
         fd.append('platform', values.Platform);
@@ -39,7 +39,7 @@ const RadioGroup = Radio.Group;
         fd.append('price', values.Price);
         fd.append('stock', values.Stock);
 
-        axios.post('http://mjsong.iptime.org:3001/products/product', fd)
+        axios.patch(`http://mjsong.iptime.org:3001/products/product/${this.props.product._id}`, fd)
               .then(r => {
                 console.log(r)
               })
@@ -66,6 +66,7 @@ const RadioGroup = Radio.Group;
     }
 
     render() {
+        console.log(this.props.product)
       const { getFieldDecorator } = this.props.form;
       const formItemLayout = {
         labelCol: { span: 6 },
@@ -77,7 +78,7 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Name"
           >
-            {getFieldDecorator('Name', {
+            {getFieldDecorator('Name', { initialValue: this.props.product.name,
               rules: [
                 { message: '제품 이름을 입력하세요' },
               ],
@@ -89,7 +90,8 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Platform"
           >
-            {getFieldDecorator('Platform')(
+            {getFieldDecorator('Platform', { initialValue: this.props.product.platform
+            })(
               <RadioGroup>
                 <Radio value="PlayStation">PS</Radio>
                 <Radio value="Nintendo">NINTENDO</Radio>
@@ -101,10 +103,12 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Catalog"
           >
-            {getFieldDecorator('Catalog')(
+            {getFieldDecorator('Catalog', { initialValue: this.props.product.catalog
+
+            })(
               <RadioGroup>
-                <RadioButton value="hardware">하드웨어</RadioButton>
-                <RadioButton value="title">타이틀</RadioButton>
+                <Radio value="hardware">하드웨어</Radio>
+                <Radio value="title">타이틀</Radio>
               </RadioGroup>
             )}
           </FormItem>
@@ -112,7 +116,7 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Provider"
           >
-            {getFieldDecorator('Provider', {
+            {getFieldDecorator('Provider', { initialValue: this.props.product.provider,
               rules: [
                 { message: 'Please select your favourite colors!'},
               ],
@@ -124,7 +128,7 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Release_date"
            >
-            {getFieldDecorator('Release_date', {
+            {getFieldDecorator('Release_date', { initialValue: moment(this.props.product.release_date, dateFormat),
                  rules: [
                     { type: 'object', message: 'Please select time!' }],
             })(
@@ -135,7 +139,7 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Price"
           >
-            {getFieldDecorator('Price', {
+            {getFieldDecorator('Price', { initialValue: this.props.product.price,
               rules: [
                 { message: '가격을 입력하세요' },
               ],
@@ -147,30 +151,12 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Stock"
           >
-            {getFieldDecorator('Stock', {
+            {getFieldDecorator('Stock', { initialValue: this.props.product.stock,
               rules: [
-                { message: '재고를 입력하세요' },
+                { message: '재고를 입력하세요' }, 
               ],
             })(
               <Input/>
-            )}
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="Image"
-          >
-            {getFieldDecorator('upload', {
-            })(
-              <input type='file' onChange={this.imageHandler}/>
-            )}
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="Sub Image"
-          >
-            {getFieldDecorator('upload2', {
-            })(
-              <input type='file' onChange={this.subImageHandler}/>
             )}
           </FormItem>
           <FormItem
@@ -183,6 +169,6 @@ const RadioGroup = Radio.Group;
     }
   }
 
-  const AddProductForm = Form.create()(ProductForm);
+  const UpdateProductForm = Form.create()(UpProductForm);
 
-  export default AddProductForm;
+  export default UpdateProductForm;
