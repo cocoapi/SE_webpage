@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {Row, Col, Card, Avatar, Icon} from 'antd';
 import axios from 'axios';
@@ -9,6 +10,7 @@ class List extends Component {
   constructor(props){
     super(props);
     this.state = {
+      user: props.user,
       products: props.products
     } 
   }
@@ -59,7 +61,9 @@ class List extends Component {
                   hoverable
                   style={{ width: '100%' }}
                   cover={<img alt="example" src={'http://mjsong.iptime.org:3001/products/image/1/' + product._id} />}
-                  actions={[<div onClick={(e) => this.modalOnClick(e)}><UpdateProductModal product={product}/></div>,<Icon type='close' onClick={(e) => this.onClickDelete(product._id, e)}/>]} // 관리자권한 일 때만
+                  actions={ this.state.user.logged_in == false ? null : (this.state.user.user.role === true ?
+                    [<div onClick={(e) => this.modalOnClick(e)}><UpdateProductModal product={product}/></div>,<Icon type='close' onClick={(e) => this.onClickDelete(product._id, e)}/>] : false)
+                  } // 관리자권한 일 때만 
                 >
                 <Meta
                   title = {product.name} 
@@ -73,11 +77,19 @@ class List extends Component {
       )
 
     return (
-      <Row gutter={48} style={{marginTop:'40px'}}>
+      <Row gutter={48} style={{marginTop:'20px'}}>
           {cardList}
       </Row>
     );
   }
 }
 
-export default List;
+
+const mapStateToProps = (state) => {
+	return {
+		user: state.currentUser,
+	}
+}
+
+export default connect(mapStateToProps)(List);
+

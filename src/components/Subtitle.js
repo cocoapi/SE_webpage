@@ -3,10 +3,10 @@ import { Row, Col } from 'antd';
 
 const subTitle = {
     borderBottom: '1px solid gray',
-    marginBottom: '10px',
     fontSize: '30px',
     paddingBottom: '20px',
-    marginTop: '150px',
+    marginTop: '80px',
+    fontWeight:'bold'
   };
   
 class Subtitle extends Component {

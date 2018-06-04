@@ -30,7 +30,7 @@ class ReviewModal extends Component{
         // 로그인 되어있으면 email 보내고 안 되어있으면 nonmember로 보냄
         axios.post(`http://mjsong.iptime.org:3001/products/review/${this.state.product_id}`, {
             title: this.state.title,
-            email: 'ssss', // 임시로 써 놓음
+            email: this.state.user.user.email, // 임시로 써 놓음
             content: this.state.content,
             rate: this.state.rate
         })
@@ -45,7 +45,7 @@ class ReviewModal extends Component{
         this.setState({ loading: true });
         setTimeout(() => {
           this.setState({ loading: false, visible: false });
-        }, 3000);
+        }, 2000);
       }
       handleCancel = () => {
         this.setState({ visible: false });

@@ -82,8 +82,6 @@ class Product extends Component {
           .catch(e => {
             console.log(e)
           })
-    // console.log(res);
-    // this.setState({reviews: res.data.reviews})
   }
 
   render() {
@@ -92,7 +90,7 @@ class Product extends Component {
         <Row>
         <Col span={20} offset={2}>
           <Row type="flex" justify="space-around" style={{marginTop: '100px', marginBottom: '50px', paddingBottom: '10px', paddingTop: '10px', borderTop: '1px solid black', borderBottom: '1px solid black'}}>
-            <Col span={8} style={{border: '1px solid black'}}>
+            <Col span={8}>
                <img src = {'http://mjsong.iptime.org:3001/products/image/1/' + this.state.product_id} style={{width : '100%'}}/>
             </Col>
             <Col span={10} style={{padding: '25px'}}>

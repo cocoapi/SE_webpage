@@ -92,8 +92,8 @@ const RadioGroup = Radio.Group;
             {getFieldDecorator('Platform')(
               <RadioGroup>
                 <Radio value="PlayStation">PS</Radio>
-                <Radio value="NINTENDO">NINTENDO</Radio>
-                <Radio value="XBOX">XBOX</Radio>
+                <Radio value="Nintendo">NINTENDO</Radio>
+                <Radio value="Xbox">XBOX</Radio>
               </RadioGroup>
             )}
           </FormItem>

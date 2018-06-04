@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setUser } from '../actions/index';
@@ -19,13 +19,18 @@ class Login extends Component {
           if (!err) {
 						console.log('Received values of form: ', values);  
 						axios.post('http://mjsong.iptime.org:3001/users/login', {email: values.userName, password: values.password})
-							.then( r => {
+							.then( r => {	
 								this.props.userLogin(r.data);
+								this.props.location.pathname === '/Buy' ? null : this.props.history.goBack();
 							})
 						.catch( e => {
-							console.log(e);
-						});
-						this.props.location.pathname === '/Buy' ? null : this.props.history.goBack();			
+							if(e.response.status == '302'){
+								message.info('없는 아이디입니다');
+							}
+							else if(e.response.status == '301'){
+								message.info('패스워드가 틀렸습니다');
+							}
+						});			
 						}
         });
       }

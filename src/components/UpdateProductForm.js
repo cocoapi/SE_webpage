@@ -4,12 +4,14 @@ import {
     Form, Select, InputNumber, Switch, Radio,
     Slider, Button, Upload, Icon, Rate, DatePicker, Input
   } from 'antd';
+import moment from 'moment';
 import '../App.css'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
+const dateFormat = 'YYYY/MM/DD';  
 
 
   class UpProductForm extends React.Component {
@@ -29,8 +31,6 @@ const RadioGroup = Radio.Group;
           console.log('Received values of form: ', values);
         }
         const fd = new FormData();
-        fd.append('img', this.state.image, this.state.image.name);
-        fd.append('imgSub', this.state.subImage, this.state.subImage.name);
         fd.append('name', values.Name);
         fd.append('catalog', values.Catalog);
         fd.append('platform', values.Platform);
@@ -39,7 +39,7 @@ const RadioGroup = Radio.Group;
         fd.append('price', values.Price);
         fd.append('stock', values.Stock);
 
-        axios.post('http://mjsong.iptime.org:3001/products/product', fd)
+        axios.patch(`http://mjsong.iptime.org:3001/products/product/${this.props.product._id}`, fd)
               .then(r => {
                 console.log(r)
               })
@@ -90,10 +90,11 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Platform"
           >
-            {getFieldDecorator('Platform')(
+            {getFieldDecorator('Platform', { initialValue: this.props.product.platform
+            })(
               <RadioGroup>
                 <Radio value="PlayStation">PS</Radio>
-                <Radio value="NINTENDO">NINTENDO</Radio>
+                <Radio value="Nintendo">NINTENDO</Radio>
                 <Radio value="XBOX">XBOX</Radio>
               </RadioGroup>
             )}
@@ -102,10 +103,12 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Catalog"
           >
-            {getFieldDecorator('Catalog')(
+            {getFieldDecorator('Catalog', { initialValue: this.props.product.catalog
+
+            })(
               <RadioGroup>
-                <RadioButton value="hardware">하드웨어</RadioButton>
-                <RadioButton value="title">타이틀</RadioButton>
+                <Radio value="hardware">하드웨어</Radio>
+                <Radio value="title">타이틀</Radio>
               </RadioGroup>
             )}
           </FormItem>
@@ -125,7 +128,7 @@ const RadioGroup = Radio.Group;
             {...formItemLayout}
             label="Release_date"
            >
-            {getFieldDecorator('Release_date', { 
+            {getFieldDecorator('Release_date', { initialValue: moment(this.props.product.release_date, dateFormat),
                  rules: [
                     { type: 'object', message: 'Please select time!' }],
             })(
@@ -154,24 +157,6 @@ const RadioGroup = Radio.Group;
               ],
             })(
               <Input/>
-            )}
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="Image"
-          >
-            {getFieldDecorator('upload', {
-            })(
-              <input type='file' onChange={this.imageHandler}/>
-            )}
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="Sub Image"
-          >
-            {getFieldDecorator('upload2', {
-            })(
-              <input type='file' onChange={this.subImageHandler}/>
             )}
           </FormItem>
           <FormItem
