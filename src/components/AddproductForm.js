@@ -93,7 +93,7 @@ const RadioGroup = Radio.Group;
               <RadioGroup>
                 <Radio value="PlayStation">PS</Radio>
                 <Radio value="Nintendo">NINTENDO</Radio>
-                <Radio value="Xbox">XBOX</Radio>
+                <Radio value="XBOX">XBOX</Radio>
               </RadioGroup>
             )}
           </FormItem>

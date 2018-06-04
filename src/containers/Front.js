@@ -3,9 +3,7 @@ import { Row, Col } from 'antd';
 import axios from 'axios';
 import List from '../components/List';
 import Ads from '../components/Ads';
-import AddProductModal from '../components/AddProductModal';
 import Subtitle from '../components/Subtitle'
-import AddProductForm from '../components/AddProductForm';
 
 const subTitle = {
   borderBottom: '1px solid gray',
