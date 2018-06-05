@@ -57,12 +57,14 @@ class RegistrationForm extends React.Component {
 			password: values.password,
 		})
 		.then(r => {
-			console.log(r)
+		Modal.success({title:'회원가입 완료', content:'회원가입이 완료되었습니다.', onOk(){window.location.href='/Login'}})
 		})
 		.catch(e => {
-			console.log(e)
+			console.log(e.response);
+			if(e.response.status === 301){
+				console.log("중복회원")
+			}
 		})
-		Modal.success({title:'회원가입 완료', content:'회원가입이 완료되었습니다.', onOk(){window.location.href='/Login'}})
       }
     });
   }
