@@ -41,7 +41,7 @@ class OrderedList extends React.Component {
 
     componentWillMount(){
         window.scrollTo(0, 0)
-        axios.get(`http://mjsong.iptime.org:3000/purchHists/hist/${this.state.email}`)
+        axios.get('http://mjsong.iptime.org:3000/purchHists/hist/${this.state.email}')
              .then( res => {
                 console.log(res);
 
