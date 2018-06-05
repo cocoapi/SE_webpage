@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Icon, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import { logout } from '../actions'
+import AddproductModal from './AddproductModal'
 import logo from '../media/resource/logo.png'
 
 class Navi extends Component {
@@ -10,6 +11,7 @@ class Navi extends Component {
 		super(props);
 		this.state = {
 			user: props.user,
+			visible: false,
 			sticky: false,
 		}
 	}
@@ -41,7 +43,16 @@ class Navi extends Component {
 					:
 					<Link style={{color:'white'}} to='/Login'> <Icon type='login'/>로그인 </Link>
 				}
-				<Link style={{color:'white'}} to='/Shopping_Cart'> <Icon type='shopping-cart'/>장바구니 </Link>
+				{
+					this.state.user.logged_in && this.state.user.user.role === true ?
+						<Link style={{color:'white'}} to='/Admin'> <Icon type='tool'/> 관리자 기능 </Link>
+						:
+						<Link style={{color:'white'}} to='/Shopping_Cart'> <Icon type='shopping-cart'/> 장바구니 </Link>
+				}
+				{
+					this.state.user.logged_in && this.state.user.user.role ?
+						<AddproductModal/> : null
+				}
 			</div>
 			<div>
 				<Row style={{marginTop:'30px'}}>

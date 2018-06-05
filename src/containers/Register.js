@@ -204,7 +204,7 @@ class RegistrationForm extends React.Component {
             rules: [{required: true, message: '거주지를 선택하세요!' }],
           })(
             <div onClick={this.callPost}>
-                  <Input placeholder='클릭 해주세요' value={this.state.fulladdress}></Input>
+                  <Input onFocus={this.callPost}placeholder='클릭 해주세요' value={this.state.fulladdress}></Input>
                  <div style={{position:'absolute', zIndex:100}}>
                   {
                     this.state.clicked ?

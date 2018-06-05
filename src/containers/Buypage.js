@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Row, Col, Table, Input, Radio } from 'antd';
+import { Button, Row, Col, Table, Input, Radio, Modal } from 'antd';
 import axios from 'axios';
 import LoginForm from '../components/LoginForm';
 const { Column }  = Table;
@@ -30,31 +30,12 @@ const RadioGroup = Radio.Group;
     marginTop:'10px'
   }
 
-class RadioSelect extends React.Component {
-  state = {
-    value: 1,
-  }
-
-  onChange = (e) => {
-    console.log('radio checked', e.target.value);
-    this.setState({
-      value: e.target.value,
-    });
-  }
-  render() {
-    const radioStyle = {
+const radioStyle = {
       display: 'block',
       height: '30px',
       lineHeight: '30px',
-    };
-    return (
-      <RadioGroup onChange={this.onChange} value={this.state.value}>
-        <Radio style={radioStyle} value={1}>계좌이체</Radio>
-        <Radio style={radioStyle} value={2}>신용카드</Radio>
-      </RadioGroup>
-    );
-  }
-}
+};
+
 
 class Buypage extends Component {
     constructor(props){
@@ -63,13 +44,16 @@ class Buypage extends Component {
             apporove : props.user.logged_in ? true : false,
 			user: props.user.user,
             dataSource : props.Cart,
+			orderName:'',
+			orderEmail:'',
+			orderPhone:'',
 			recvName: '',
 			recvPhone: '',
-			recvPhone2: '',
 			recvPost: '',
 			recvAddr: '',
 			recvAddrDetail: '',
 			pMethod: '',
+			visible: false,
         }
         this.clickOrder= this.clickOrder.bind(this);
     }
@@ -89,8 +73,8 @@ class Buypage extends Component {
     clickOrder = () => {
         this.setState({apporove : true});
     };
-
-    render() {
+    
+	render() {
         return (
            this.state.apporove === false ? 
                 <div style={{height: '800px', display:'flex', flexDirection:'column'}}>
@@ -113,7 +97,6 @@ class Buypage extends Component {
                 </div>
                 :
                 <div>
-                    {console.log(this.state.user)}
                 <Row>
                   <Col span={20} offset={2}>
                     <Row style={{marginTop:'50px', borderBottom:'1px solid black', paddingBottom:'5px', textAlign:'left'}}>
@@ -166,23 +149,22 @@ class Buypage extends Component {
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>이름</div></Col>
-                        <Col span={3}><Input size='small' defaultValue={this.state.user.nickname}/></Col>
+                        <Col span={3}><Input size='small' defaultValue={this.state.user.nickname} onChange={e=>this.onChangeInput({orderName: e.target.value })}/></Col>
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>이메일</div></Col>
-                        <Col span={4}><Input size='small' defaultValue={this.state.user.email}/></Col>
+                        <Col span={4}><Input size='small' defaultValue={this.state.user.email} onChange={e => this.onChangeInput({orderEmail: e.target.value })}/></Col>
                     </Row>
                     <Row style={smallContentBottom}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>연락처</div></Col>
                         <Col span={13}>
                             <InputGroup size="small">
                                 <Col span={6}>
-                                    <Input defaultValue={this.state.user.phone} />
+                                    <Input defaultValue={this.state.user.phone} onChange={e => this.onChangeInput({orderPhone: e.target.value})}/>
                                 </Col>
                             </InputGroup>
                         </Col>
                     </Row>
-                    
                     <Row style={smallSubDiv}>
                         <Col span={6}><h4 style={smallSub}>배송정보</h4></Col>
                     </Row>
@@ -195,7 +177,7 @@ class Buypage extends Component {
                         <Col span={13}>
                             <InputGroup size="small">
                                 <Col span={6}>
-                                    <Input defaultValue={this.state.user.phone} />
+                                    <Input defaultValue={this.state.user.phone} onChange={e => {this.onChangeInput({recvPhone:e.target.value})}}/>
                                 </Col>
                             </InputGroup>
                         </Col>
@@ -205,44 +187,73 @@ class Buypage extends Component {
                         <Col span={13}>
                             <InputGroup size="small">
                                 <Col span={4}>
-                                    <Input defaultValue={this.state.user.post_code} />
+                                    <Input defaultValue={this.state.user.post_code} onChange={e => this.onChangeInput({recvPost: e.target.value })}/>
                                 </Col>
                             </InputGroup>
                         </Col>
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>주소</div></Col>
-                        <Col span={4}><Input size='small' defaultValue={this.state.user.address} /></Col>
+                        <Col span={4}><Input size='small' defaultValue={this.state.user.address} onChange={e => this.onChangeInput({ recvAddr: e.target.value })}/></Col>
                     </Row>
                     <Row style={smallContentBottom}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>상세주소</div></Col>
-                        <Col span={4}><Input size='small' defaultValue={this.state.user.address_detail} onChange={e => this.onChangeInput({ recvAddr: e.target.value })}/></Col>
+                        <Col span={4}><Input size='small' defaultValue={this.state.user.address_detail} onChange={e => this.onChangeInput({ recvAddrDetail: e.target.value })}/></Col>
                     </Row>
 
                     <Row style={smallSubDiv}>
                         <Col span={6}><h4 style={smallSub}>결제방법</h4></Col>
                     </Row>
                     <Row style={smallContentBottom}>
-                      <Col span={3}><RadioSelect onChange={e => {console.log(e)}}/></Col>
+                      <Col span={3}>
+						<RadioGroup onChange={e => this.onChangeInput({ pMethod: e.target.value })}>
+							<Radio style={radioStyle} value={'계좌이체'}>계좌이체</Radio>
+							<Radio style={radioStyle} value={'신용카드'}>신용카드</Radio>
+						</RadioGroup>
+					  </Col>
                     </Row>
 
                     <Row>
                       <Col span={6} offset={9} style={{marginTop:'50px'}}> 
                         <Button type="primary" style={{marginRight: '8px'}} onClick={() => {
-							/*axios.post('http://mjsong.iptime.org:3001/hist/move/'+this.state.user.email,{
-									name: req.body.name,
-									email: result.email,
-									order_list: result.order_list,
-									payment_method: req.body.payment_method,
-									name_recv: req.body.name_recv,
-									phone_recv: req.body.phone_recv,
-									post_code: req.body.post_code,
-									amount: req.body.amount,
-									address: req.body.address,
-									address_detail: req.body.address_detail,
-									purchase_date: req.body.purchase_date
-								})*/
+							console.log(this.state)
+							if(this.props.user.logged_in){
+								axios.post('http://mjsong.iptime.org:3001/purchHists/hist/move/'+this.state.user.email,{
+									name: this.state.user.nickname,
+									payment_method: this.state.pMethod,
+									phone: this.state.user.phone,
+									name_recv: this.state.recvName === '' ? this.state.user.nickname : this.state.recvName,
+									phone_recv: this.state.recvPhone === '' ? this.state.user.phone : this.state.recvPhone,
+									post_code: this.state.recvPost === '' ? this.state.user.post_code : this.state.recvPost,
+									address: this.state.recvAddr === '' ? this.state.user.address : this.state.recvAddr,
+									address_detail: this.state.recvAddrDetail === '' ? this.state.user.address_detail : this.state.recvAddrDetail,
+								})
+								.then(r => {
+									this.setState({visible: true});
+								})
+								.catch(e => {})
+							}else{
+								axios.post('http://mjsong.iptime.org:3001/purchHists/hist',{
+										        email: this.state.orderEmail,
+												name: this.state.orderName,
+												phone: this.state.orderPhone,
+												order_list: this.state.dataSource,
+												payment_method: this.state.pMethod,
+												name_recv: this.state.recvName,
+												phone_recv: this.state.recvPhone,
+												post_code: this.state.recvPost,
+												address: this.state.recvAddr,
+												address_detail: this.state.recvAddrDetail,
+										})
+								.then(r => {
+									this.setState({visible:true})
+								})
+								.catch(e=> {})
+							}
 						}} size='large'>주문하기</Button>
+						<Modal title='주문완료' visible={this.state.visible} onCancel={()=>this.setState({visible:false})} onOk={()=>this.props.history.push('/OrderedList/'+this.state.user.email)}>
+							주문을 확인하시겠습니까?
+						</Modal>
                         <Button type="danger" style={{marginLeft: '8px'}} size='large'>주문취소</Button>
                       </Col>
                     </Row>
