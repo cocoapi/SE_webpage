@@ -160,24 +160,6 @@ class Admin extends Component {
                 </Col>
               </Row>
             </div>
-<<<<<<< HEAD
-            <div style={{backgroundColor:'whiteSmoke'}}>
-              <Subtitle title='총 누적 판매량'/>
-              <Row>
-                <Col span={12} offset={5}>
-                  <BarChart width={730} height={250} data={this.state.addedPurch}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="value" fill="#8884d8" />
-                  </BarChart>
-                </Col>
-              </Row>
-            </div>
-=======
->>>>>>> bb8ddf162aefdcca00d4168f6a244eb8a2e29861
               <div style={{backgroundColor:'whiteSmoke'}}>
                 <Subtitle title='회원 관리'/>
                 <Row style={{marginTop:'20px'}}>
