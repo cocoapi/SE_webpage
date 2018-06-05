@@ -27,10 +27,16 @@ class ReviewModal extends Component{
       }
       handleOk = () => {
         console.log(this.state.user);
-        // 로그인 되어있으면 email 보내고 안 되어있으면 nonmember로 보냄
+        if(this.props.user.logged_in == false){
+          var email = '비회원'
+        }
+        else{
+          var email = this.state.user.user.email
+        }
+
         axios.post(`http://mjsong.iptime.org:3001/products/review/${this.state.product_id}`, {
             title: this.state.title,
-            email: this.state.user.user.email, // 임시로 써 놓음
+            email: email,
             content: this.state.content,
             rate: this.state.rate
         })

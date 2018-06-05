@@ -79,23 +79,18 @@ class Consoles extends Component {
   render() {
     return (
       <div>
-        <Row style={{
-marginTop: '50px', borderBottom: '1px solid black', paddingBottom: '5px', textAlign: 'left',
-}}
-        >
-          <Col span={6}><strong style={{ fontSize: '30px' }}>{this.state.catalog === undefined ? this.state.consoleName : this.state.catalog }</strong></Col>
+        <Row style={{marginTop: '50px', paddingBottom: '5px', textAlign: 'left'}}>
+          <Col span={4}><strong style={{ fontSize: '30px' }}>{this.state.catalog === undefined ? this.state.consoleName : this.state.catalog }</strong></Col>
         </Row>
         <Row
           align="middle"
-          style={{
-  paddingTop: '10px', paddingBottom: '10px', fontSize: '15px', backgroundColor: 'WhiteSmoke',
-}}
+          style={{paddingTop: '10px', paddingBottom: '10px', fontSize: '15px', backgroundColor: 'whiteSmoke'}}
         >
           <Col span={3} offset={9}>
-            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName, catalog: 'Hardware' } }} style={{ color: 'black' }}> 하드웨어 </Link>
+            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName, catalog: 'Hardware' } }} style={{ color: 'black'}}> 하드웨어 </Link>
           </Col>
           <Col span={3}>
-            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName, catalog: 'Title' } }} style={{ color: 'black' }}> 타이틀 </Link>
+            <Link to={{ pathname: `/${this.state.consoleName}/ProductList`, state: { consoleName: this.state.consoleName, catalog: 'Title' } }} style={{ color: 'black'}}> 타이틀 </Link>
           </Col>
         </Row>
         <Row>

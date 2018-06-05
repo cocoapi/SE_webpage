@@ -8,6 +8,7 @@ import Resister from './containers/Register';
 import Cart from './containers/Cart';
 import Product from './containers/Product';
 import OrderedList from './containers/OrderedList';
+import Admin from './containers/Admin';
 
 class Router extends Component {
   render() {
@@ -61,6 +62,10 @@ class Router extends Component {
         <Route
           path="/OrderedList/:userid"
           component={OrderedList}
+        />
+        <Route
+          path="/Admin"
+          component={Admin}
         />
       </div>
     );

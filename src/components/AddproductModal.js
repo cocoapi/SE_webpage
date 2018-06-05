@@ -34,9 +34,9 @@ class AddProductModal extends Component{
         const { visible, loading } = this.state;
         return (
           <div>
-            <Button type="primary" onClick={this.showModal}>
+            <Icon type="file-add" onClick={this.showModal}>
               상품추가
-            </Button>
+            </Icon>
             <Modal 
               visible={visible}
               title="상품 추가"

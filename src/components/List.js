@@ -59,6 +59,7 @@ class List extends Component {
             <Link to={{pathname: '/' + product.platform + '/ProductList/' + product._id, state: {info: product}}}>
                 <Card 
                   hoverable
+                  bordered = {false}
                   style={{ width: '100%' }}
                   cover={<img alt="example" src={'http://mjsong.iptime.org:3001/products/image/1/' + product._id} />}
                   actions={ this.state.user.logged_in == false ? null : (this.state.user.user.role === true ?
@@ -77,8 +78,10 @@ class List extends Component {
       )
 
     return (
-      <Row gutter={48} style={{marginTop:'20px'}}>
+      <Row gutter={48} style={{marginTop:'20px', backgroundColor:'whiteSmoke'}}>
+        <Col span={22} offset={1}>
           {cardList}
+        </Col>
       </Row>
     );
   }
