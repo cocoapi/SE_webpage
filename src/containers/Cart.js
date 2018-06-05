@@ -34,9 +34,9 @@ class Cart extends Component {
   truncCart = () => {
 	this.props.trunc();
 	if(this.state.user.email !== undefined){
-		axios.patch('http://mjsong.iptime.org:3001/carts',{
-					email: this.state.user.email,
-					order_list: this.props.Cart,
+		axios.patch('http://mjsong.iptime.org:3001/carts/'+this.state.user.email,{
+				email: this.state.user.email,	
+				order_list: this.props.Cart,
 				})
 		.then(r => {})
 		.catch(e => {})

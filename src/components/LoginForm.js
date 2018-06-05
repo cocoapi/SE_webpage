@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setUser } from '../actions/index';
+import { setUser, setCart } from '../actions/index';
 
 const FormItem = Form.Item;
 
@@ -14,14 +14,21 @@ class Login extends Component {
 			}
 		}
     handleSubmit = (e) => {
+		console.log(this.props.history.location)
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-						console.log('Received values of form: ', values);  
 						axios.post('http://mjsong.iptime.org:3001/users/login', {email: values.userName, password: values.password})
 							.then( r => {	
 								this.props.userLogin(r.data);
-								this.props.location.pathname === '/Buy' ? null : this.props.history.goBack();
+								axios.get("http://mjsong.iptime.org:3001/carts/"+values.userName)
+									.then(r => {
+										console.log(r.data)
+										this.props.setCart(r.data.order_list)
+									})
+								.catch(e => {
+								})
+								this.props.location.pathname === '/Buy' ? null : this.props.history.location.pathname === '/Resistration' ? this.props.history.push('/') : this.props.history.goBack();
 							})
 						.catch( e => {
 							if(e.response.status == '302'){
@@ -74,7 +81,8 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		userLogin: (user) => dispatch(setUser(user))
+		userLogin: (user) => dispatch(setUser(user)),
+		setCart: (Cart) => dispatch(setCart(Cart))
 	};
 }
 

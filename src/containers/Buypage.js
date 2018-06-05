@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Row, Col, Table, Input, Radio } from 'antd';
+import axios from 'axios';
 import LoginForm from '../components/LoginForm';
 const { Column }  = Table;
 const InputGroup = Input.Group;
@@ -62,11 +63,22 @@ class Buypage extends Component {
             apporove : props.user.logged_in ? true : false,
 			user: props.user.user,
             dataSource : props.Cart,
+			recvName: '',
+			recvPhone: '',
+			recvPhone2: '',
+			recvPost: '',
+			recvAddr: '',
+			recvAddrDetail: '',
+			pMethod: '',
         }
         this.clickOrder= this.clickOrder.bind(this);
     }
+	onChangeInput = e => {
+		this.setState(e)
+	}
+
     componentWillReceiveProps(nextProps){
-        nextProps.user.logged_in ? this.setState({apporove: true}) : null
+        nextProps.user.logged_in ? this.setState({apporove: true, user:nextProps.user.user, dataSource:nextProps.Cart}) : null
     }
 
     clickOrder = () => {
@@ -174,17 +186,17 @@ class Buypage extends Component {
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>이름</div></Col>
-                        <Col span={3}><Input size='small' defaultValue={this.props.user.nickname}/></Col>
+                        <Col span={3}><Input size='small' defaultValue={this.state.user.nickname} onChange={e => this.onChangeInput({ recvName: e.target.value })}/></Col>
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>연락처</div></Col>
                         <Col span={13}>
                             <InputGroup size="small">
                                 <Col span={2}>
-                                    <Input defaultValue={this.state.user.phone.slice(0, 3)} />
+                                    <Input defaultValue={this.state.user.phone.slice(0, 3)} onChange={e => this.onChangeInput({ recvPhone: e.target.value })}/>
                                 </Col>
                                 <Col span={4}>
-                                    <Input defaultValue={this.state.user.phone.slice(4, 12)} />
+                                    <Input defaultValue={this.state.user.phone.slice(4, 12)} onChange={e => this.onChangeInput({ recvPhone2: e.target.value })}/>
                                 </Col>
                             </InputGroup>
                         </Col>
@@ -205,19 +217,33 @@ class Buypage extends Component {
                     </Row>
                     <Row style={smallContentBottom}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>상세주소</div></Col>
-                        <Col span={4}><Input size='small' defaultValue={this.state.user.address_detail}/></Col>
+                        <Col span={4}><Input size='small' defaultValue={this.state.user.address_detail} onChange={e => this.onChangeInput({ recvAddr: e.target.value })}/></Col>
                     </Row>
 
                     <Row style={smallSubDiv}>
                         <Col span={6}><h4 style={smallSub}>결제방법</h4></Col>
                     </Row>
                     <Row style={smallContentBottom}>
-                      <Col span={3}><RadioSelect/></Col>
+                      <Col span={3}><RadioSelect onChange={e => {console.log(e)}}/></Col>
                     </Row>
 
                     <Row>
                       <Col span={6} offset={9} style={{marginTop:'50px'}}> 
-                        <Button type="primary" style={{marginRight: '8px'}} size='large'>주문하기</Button>
+                        <Button type="primary" style={{marginRight: '8px'}} onClick={() => {
+							/*axios.post('http://mjsong.iptime.org:3001/hist/move/'+this.state.user.email,{
+									name: req.body.name,
+									email: result.email,
+									order_list: result.order_list,
+									payment_method: req.body.payment_method,
+									name_recv: req.body.name_recv,
+									phone_recv: req.body.phone_recv,
+									post_code: req.body.post_code,
+									amount: req.body.amount,
+									address: req.body.address,
+									address_detail: req.body.address_detail,
+									purchase_date: req.body.purchase_date
+								})*/
+						}} size='large'>주문하기</Button>
                         <Button type="danger" style={{marginLeft: '8px'}} size='large'>주문취소</Button>
                       </Col>
                     </Row>
