@@ -13,6 +13,11 @@ class Login extends Component {
 				success: false,
 			}
 		}
+
+	componentDidMount(){
+		window.scrollTo(0, 0)
+	}
+	
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
