@@ -179,8 +179,8 @@ class RegistrationForm extends React.Component {
           {...formItemLayout}
           label={(
             <span>
-              닉네임&nbsp;
-              <Tooltip title="다른 멤버가 뭐라고 부르길 희망하나요?">
+              이름&nbsp;
+              <Tooltip title="이름을 입력해주세요">
                 <Icon type="question-circle-o" />
               </Tooltip>
             </span>

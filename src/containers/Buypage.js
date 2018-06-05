@@ -6,17 +6,6 @@ const { Column }  = Table;
 const InputGroup = Input.Group;
 const RadioGroup = Radio.Group;
 
-const dataSource = [{
-    key: '1',
-    name: 'SuperMario',
-    quantity: 1,
-    price: 23000,
-  }, {
-    key: '2',
-    name: '진삼국무쌍',
-    quantity: 1,
-    price: 35000,
-  }];
 
   const smallSub = {
     fontSize: '20px'
@@ -71,9 +60,8 @@ class Buypage extends Component {
         super(props);
         this.state = {
             apporove : props.user.logged_in ? true : false,
-			user: props.user,
-			Cart: props.Cart,
-            dataSource : dataSource,
+			user: props.user.user,
+            dataSource : props.Cart,
         }
         this.clickOrder= this.clickOrder.bind(this);
     }
@@ -87,7 +75,7 @@ class Buypage extends Component {
 
     render() {
         return (
-            this.state.apporove === false ? 
+           this.state.apporove === false ? 
                 <div style={{height: '800px', display:'flex', flexDirection:'column'}}>
                     <div style={{height:'30%'}}/>
                     <div style={{height:'40%', display:'flex', flexDirection:'row'}}>
@@ -108,6 +96,7 @@ class Buypage extends Component {
                 </div>
                 :
                 <div>
+                    {console.log(this.state.user)}
                 <Row>
                   <Col span={20} offset={2}>
                     <Row style={{marginTop:'50px', borderBottom:'1px solid black', paddingBottom:'5px', textAlign:'left'}}>
@@ -160,21 +149,21 @@ class Buypage extends Component {
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>이름</div></Col>
-                        <Col span={3}><Input size='small'/></Col>
+                        <Col span={3}><Input size='small' defaultValue={this.state.user.nickname}/></Col>
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>이메일</div></Col>
-                        <Col span={4}><Input size='small'/></Col>
+                        <Col span={4}><Input size='small' defaultValue={this.state.user.email}/></Col>
                     </Row>
                     <Row style={smallContentBottom}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>연락처</div></Col>
                         <Col span={13}>
                             <InputGroup size="small">
                                 <Col span={2}>
-                                    <Input defaultValue="010" />
+                                    <Input defaultValue={this.state.user.phone.slice(0, 3)} />
                                 </Col>
                                 <Col span={4}>
-                                    <Input defaultValue="2676-6413" />
+                                    <Input defaultValue={this.state.user.phone.slice(4, 12)}/>
                                 </Col>
                             </InputGroup>
                         </Col>
@@ -185,17 +174,17 @@ class Buypage extends Component {
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>이름</div></Col>
-                        <Col span={3}><Input size='small'/></Col>
+                        <Col span={3}><Input size='small' defaultValue={this.props.user.nickname}/></Col>
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>연락처</div></Col>
                         <Col span={13}>
                             <InputGroup size="small">
                                 <Col span={2}>
-                                    <Input defaultValue="010" />
+                                    <Input defaultValue={this.state.user.phone.slice(0, 3)} />
                                 </Col>
                                 <Col span={4}>
-                                    <Input defaultValue="2676-6413" />
+                                    <Input defaultValue={this.state.user.phone.slice(4, 12)} />
                                 </Col>
                             </InputGroup>
                         </Col>
@@ -204,22 +193,19 @@ class Buypage extends Component {
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>우편번호</div></Col>
                         <Col span={13}>
                             <InputGroup size="small">
-                                <Col span={2}>
-                                    <Input defaultValue="431" />
-                                </Col>
-                                <Col span={2}>
-                                    <Input defaultValue="070" />
+                                <Col span={4}>
+                                    <Input defaultValue={this.state.user.post_code} />
                                 </Col>
                             </InputGroup>
                         </Col>
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>주소</div></Col>
-                        <Col span={4}><Input size='small'/></Col>
+                        <Col span={4}><Input size='small' defaultValue={this.state.user.address} /></Col>
                     </Row>
                     <Row style={smallContentBottom}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>상세주소</div></Col>
-                        <Col span={4}><Input size='small'/></Col>
+                        <Col span={4}><Input size='small' defaultValue={this.state.user.address_detail}/></Col>
                     </Row>
 
                     <Row style={smallSubDiv}>
@@ -245,7 +231,7 @@ class Buypage extends Component {
 const mapStateToProps = state => {
     return {
         user: state.currentUser,
-		Cart: state.Cart,
+		Cart: state.Cart.Cart,
     }
 }
 
