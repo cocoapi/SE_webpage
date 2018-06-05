@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Button, Rate, Input, Row, Col } from 'antd';
-import AddProductForm  from '../components/AddProductForm'
+import { Modal, Button, Rate, Input, Row, Col, Icon } from 'antd';
+import AddProductForm  from '../components/AddproductForm'
 const { TextArea } = Input;
 
 class AddProductModal extends Component{
@@ -34,9 +34,9 @@ class AddProductModal extends Component{
         const { visible, loading } = this.state;
         return (
           <div>
-            <Icon type="file-add" onClick={this.showModal}>
-              상품추가
-            </Icon>
+			<div style={{color: 'white'}} onClick={this.showModal}>
+				<Icon type="file-add" /> 상품추가
+			</div>
             <Modal 
               visible={visible}
               title="상품 추가"
