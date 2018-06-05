@@ -66,7 +66,7 @@ class Buypage extends Component {
         this.clickOrder= this.clickOrder.bind(this);
     }
     componentWillReceiveProps(nextProps){
-        nextProps.user.logged_in ? this.setState({apporove: true}) : null
+        nextProps.user.logged_in ? this.setState({apporove: true, user:nextProps.user.user}) : null
     }
 
     clickOrder = () => {

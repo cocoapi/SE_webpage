@@ -94,9 +94,10 @@ class Product extends Component {
 					}}> 주문하기 </Button>
                           <Button icon='shopping-cart' size='large' onClick={() => {
 							  this.props.addCart({...this.state.info, quantity: this.state.Quantity});
-                    if(this.props.user !== undefined){
-							  axios.patch('http://mjsong.iptime.org:3001/carts',{
-								email: this.props.user.email,
+                    if(this.props.user.email !== undefined){
+						console.log(this.props.Cart)
+							  axios.patch('http://mjsong.iptime.org:3001/carts/'+this.props.user.email,{
+									  email:this.props.user.email,
 								order_list: this.props.Cart,
 							})
 							  .then(r =>{
