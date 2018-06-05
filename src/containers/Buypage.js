@@ -73,6 +73,11 @@ class Buypage extends Component {
         }
         this.clickOrder= this.clickOrder.bind(this);
     }
+
+    componentDidMount(){
+        window.scrollTo(0, 0)
+    }
+
 	onChangeInput = e => {
 		this.setState(e)
 	}
@@ -171,11 +176,8 @@ class Buypage extends Component {
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>연락처</div></Col>
                         <Col span={13}>
                             <InputGroup size="small">
-                                <Col span={2}>
-                                    <Input defaultValue={this.state.user.phone.slice(0, 3)} />
-                                </Col>
-                                <Col span={4}>
-                                    <Input defaultValue={this.state.user.phone.slice(4, 12)}/>
+                                <Col span={6}>
+                                    <Input defaultValue={this.state.user.phone} />
                                 </Col>
                             </InputGroup>
                         </Col>
@@ -192,11 +194,8 @@ class Buypage extends Component {
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>연락처</div></Col>
                         <Col span={13}>
                             <InputGroup size="small">
-                                <Col span={2}>
-                                    <Input defaultValue={this.state.user.phone.slice(0, 3)} onChange={e => this.onChangeInput({ recvPhone: e.target.value })}/>
-                                </Col>
-                                <Col span={4}>
-                                    <Input defaultValue={this.state.user.phone.slice(4, 12)} onChange={e => this.onChangeInput({ recvPhone2: e.target.value })}/>
+                                <Col span={6}>
+                                    <Input defaultValue={this.state.user.phone} />
                                 </Col>
                             </InputGroup>
                         </Col>

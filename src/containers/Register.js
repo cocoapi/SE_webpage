@@ -18,6 +18,10 @@ class RegistrationForm extends React.Component {
    this.callPost= this.callPost.bind(this);
   }
 
+  componentDidMount(){
+    window.scrollTo(0, 0)
+  }
+  
   getAddress = (data) => {
     const addr = data.address;
     const code = data.postcode

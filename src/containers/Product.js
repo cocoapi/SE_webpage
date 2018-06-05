@@ -33,7 +33,6 @@ class Product extends Component {
 
     axios.get(`http://mjsong.iptime.org:3001/products/review/${this.state.product_id}`)
     .then(res => {
-      console.log(res)
       this.setState({reviews: res.data})
     })
     .catch(e => {
@@ -44,7 +43,6 @@ class Product extends Component {
   onChange = (value) =>{
     console.log('changed', value);
   }
-
 
   reviewAdded = () => {
     axios.get(`http://mjsong.iptime.org:3001/products/review/${this.state.product_id}`)
