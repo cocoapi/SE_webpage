@@ -2,52 +2,40 @@ import React, { Component } from 'react';
 import { Table, Button, Input, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { updateCart, trunkCart } from '../actions'
 const { Column } = Table;
-
-const dataSource = [{
-  key: '1',
-  name: 'SuperMario',
-  quantity: 1,
-  price: 23000,
-}, {
-  key: '2',
-  name: '진삼국무쌍',
-  quantity: 1,
-  price: 35000,
-}];
 
 class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource,
-	  Cart: props.Cart,
+		dataSource: props.Cart,
     };
-    this.onClickUpMethod = this.onClickUpMethod.bind(this);
-    this.onClickDownMethod = this.onClickDownMethod.bind(this);
   }
 
-  onClickUpMethod(key) {
-    if (dataSource[key - 1].quantity >= 99) return;
-    dataSource[key - 1].quantity += 1;
-    this.setState({ dataSource });
+  componentWillReceiveProps(nextProps){
+	this.setState({dataSource: nextProps.Cart });
   }
 
-  onClickDownMethod(key) {
-    if (dataSource[key - 1].quantity <= 1) return;
-
-    dataSource[key - 1].quantity -= 1;
-    this.setState({ dataSource });
+  onClickUpMethod = (key) => {
+    if (this.state.dataSource[key - 1].quantity >= 99) return;
+    this.props.update(key - 1, 1);
+	this.setState({dataSource: this.props.Cart })
   }
 
-  truncCart() {
-    this.setState({ dataSource: [] });
+  onClickDownMethod = (key) => {
+    if (this.state.dataSource[key - 1].quantity <= 1) return;
+	this.props.update(key - 1, -1);
+	this.setState({dataSource: this.props.Cart })
+  }
+
+  truncCart = () => {
+	this.props.trunc();
   }
   
   render() {
     return (
       <div style={{ height: '1000px', display: 'flex', flexDirection: 'column' }}>
-	  {console.log(this.state.Cart)}  
 	  <h2 style={{ marginTop: '13px' }}>Shopping Cart</h2>
         <Table
           dataSource={this.state.dataSource}
@@ -117,9 +105,15 @@ class Cart extends Component {
 
 const mapStatetoProps = (state) => {
 	return{
-		Cart: state.Cart,
+		Cart: state.Cart.Cart,
 	}
 }
 
+const mapDispatchtoProps = (dispatch) => {
+	return{
+		trunc: () => dispatch(trunkCart()),
+		update: (key, quantity) => dispatch(updateCart(key, quantity)),
+	}
+}
 
-export default connect(mapStatetoProps)(Cart);
+export default connect(mapStatetoProps, mapDispatchtoProps)(Cart);

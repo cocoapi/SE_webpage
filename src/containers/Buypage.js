@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Row, Col, Table, Input} from 'antd';
+import { Button, Row, Col, Table, Input, Radio } from 'antd';
 import LoginForm from '../components/LoginForm';
-import {Radio} from 'antd';
 const { Column }  = Table;
 const InputGroup = Input.Group;
 const RadioGroup = Radio.Group;
@@ -72,6 +71,8 @@ class Buypage extends Component {
         super(props);
         this.state = {
             apporove : props.user.logged_in ? true : false,
+			user: props.user,
+			Cart: props.Cart,
             dataSource : dataSource,
         }
         this.clickOrder= this.clickOrder.bind(this);
@@ -244,6 +245,7 @@ class Buypage extends Component {
 const mapStateToProps = state => {
     return {
         user: state.currentUser,
+		Cart: state.Cart,
     }
 }
 
