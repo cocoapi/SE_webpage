@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input, Tooltip, Icon, Select, Button, Modal, Row, Col  } from 'antd';
 import DaumPostcode from 'react-daum-postcode';
 import axios from 'axios';
+import Subtitle from '../components/Subtitle'
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -21,12 +22,15 @@ class RegistrationForm extends React.Component {
   componentDidMount(){
     window.scrollTo(0, 0)
   }
-  
+
   getAddress = (data) => {
     const addr = data.address;
     const code = data.postcode
-    this.setState({ fulladdress: addr })
-	this.setState({ postNumber: code })
+
+    this.setState({
+      fulladdress: addr,
+      postNumber: code,
+    });
     this.residenceWarn();
   }
 
@@ -248,21 +252,14 @@ const WrappedRegistrationForm = Form.create()(RegistrationForm);
 class Register extends Component {
   render() {
     return (
-          <div style={{height:'1000px', width:'100%', margin:'auto', display:'flex', flexDirection:'column'}}>
-            <div style={{height: '20%', display:'flex', flexDirection:'column', fontFamily: "Comic Sans MS" , fontsize: "30px", backgroundColor: 'LightGray'}}>
-              <div style={{height: '40%'}}/>
-              <div style={{height: '20%'}}>
-                <h1>회원가입</h1>
-              </div>
-              <div style={{height: '40%'}}/>
-            </div>
-            <div style={{height: '55%', display: 'flex', flexDirection:'row', marginTop: '40px'}}>
-              <div style={{width: '30%'}}/>
-              <div style={{width: '40%', border: '1px solid gray', padding: '40px'}}>
-                <WrappedRegistrationForm style={{border: '1px soid gray'}} history={this.props.history}/>
-              </div>
-            </div>
-	        </div>
+      <div>
+        <Subtitle title='회원가입'/>
+        <Row>
+          <Col span={8} offset={8} style={{padding:'30px', backgroundColor:'whiteSmoke'}}>
+            <WrappedRegistrationForm style={{border: '1px soid gray'}} history={this.props.history}/>
+          </Col>
+        </Row> 
+      </div>
     );
   }
 }
