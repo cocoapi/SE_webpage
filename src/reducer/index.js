@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import axios from 'axios';
 
 const InitialState = {
   logged_in: false,
@@ -34,6 +35,9 @@ const Cart = (state = InitialCart, action) => {
 			state.Cart.push({...action.payload.obj, key: state.Cart.length + 1});
 		}
 		return { ...state };
+	case 'SET_CART':
+		state.Cart = action.payload.obj;
+		return { ...state }
 	case 'UPDATE_CART':
 	  state.Cart[action.payload.key].quantity += action.payload.quantity;
 	  return { ...state };

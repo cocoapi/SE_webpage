@@ -18,7 +18,7 @@ class List extends Component {
   componentWillReceiveProps(nextProps){
     console.log(nextProps);
     this.setState({products: nextProps.products});
-  
+	this.setState({user: nextProps.user})
   }
 
   onClickDelete = (id, e) => {
@@ -43,12 +43,6 @@ class List extends Component {
   modalOnClick = (e) => {
     e.preventDefault();
   }
-  // onClickUpdate = (id, e) => {
-  //   e.preventDefault();
-  //   console.log(id);
-  //   return <AddProductModal/>
-  // }
-  
   
   render() {
     const cardList = 
@@ -62,7 +56,7 @@ class List extends Component {
                   bordered = {false}
                   style={{ width: '100%' }}
                   cover={<img alt="example" src={'http://mjsong.iptime.org:3001/products/image/1/' + product._id} />}
-                  actions={ this.state.user.logged_in == false ? null : (this.state.user.user.role === true ?
+                  actions={ this.state.user.logged_in && (this.state.user.user.role === true ?
                     [<div onClick={(e) => this.modalOnClick(e)}><UpdateProductModal product={product}/></div>,<Icon type='close' onClick={(e) => this.onClickDelete(product._id, e)}/>] : false)
                   } // 관리자권한 일 때만 
                 >

@@ -8,32 +8,6 @@ import Review from '../components/Review';
 import ReviewModal from '../components/ReviewModal';
 import Subtitle from '../components/Subtitle';
 
-// const reviews = [{
-//   email: "soondi@hanmail.net",
-//   title: "재미있네요",
-//   platform: "PS",
-//   content: "짱짱",
-//   rate: 5
-// },{
-//   email: "hihi@naver.com",
-//   title: "와우",
-//   platform: "PS",
-//   content: "좋아요",
-//   rate: 5
-// },{
-//   email: "dododo@hotmail.net",
-//   title: "재미없어요",
-//   platform: "PS",
-//   content: "별로네요",
-//   rate: 2  
-// },{
-//   email: "wdwdwss",
-//   title: "재미없어요",
-//   platform: "PS",
-//   content: "별로네요",
-//   rate: 3
-// }]
-
 const subTitle = {
   borderBottom: "1px solid gray", 
   marginBottom: "10px", 
@@ -66,7 +40,8 @@ class Product extends Component {
     })
   }
 
-  onAddCart = () => {
+  onChange = (value) =>{
+    console.log('changed', value);
   }
 
   reviewAdded = () => {
@@ -117,7 +92,18 @@ class Product extends Component {
 					}}> 주문하기 </Button>
                           <Button icon='shopping-cart' size='large' onClick={() => {
 							  this.props.addCart({...this.state.info, quantity: this.state.Quantity});
-                    this.setState({modalVisible: true})
+                    if(this.props.user.email !== undefined){
+						console.log(this.props.Cart)
+							  axios.patch('http://mjsong.iptime.org:3001/carts/'+this.props.user.email,{
+									  email:this.props.user.email,
+								order_list: this.props.Cart,
+							})
+							  .then(r =>{
+							  })
+							  .catch(e =>{
+							  })
+					}
+							  this.setState({modalVisible: true})
                           }}> 장바구니 </Button>
                     <Modal
                       title='장바구니에 추가되었습니다.'
@@ -166,10 +152,16 @@ class Product extends Component {
   }
 }
 
+const mapStatetoProps = (state) => {
+	return{
+		user: state.currentUser.user,
+		Cart: state.Cart.Cart,
+	}
+}
 const mapDispatchtoProps = (dispatch) => {
 	return {
 		addCart: (Product) => dispatch(addCart(Product)) 
 	}
 }
 
-export default connect(undefined, mapDispatchtoProps)(Product);
+export default connect(mapStatetoProps, mapDispatchtoProps)(Product);

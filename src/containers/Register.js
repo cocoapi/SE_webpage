@@ -25,11 +25,8 @@ class RegistrationForm extends React.Component {
   getAddress = (data) => {
     const addr = data.address;
     const code = data.postcode
-    this.setState({
-      fulladdress: addr,
-      postNumber: code,
-    });
-    console.log(this.state.fulladdress); 
+    this.setState({ fulladdress: addr })
+	this.setState({ postNumber: code })
     this.residenceWarn();
   }
 
@@ -48,9 +45,6 @@ class RegistrationForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-		const args = [
-		]
 		axios.post('http://mjsong.iptime.org:3001/users', {
 			email: values.email,
 			nickname: values.nickname,
@@ -62,11 +56,14 @@ class RegistrationForm extends React.Component {
 		})
 		.then(r => {
 			console.log(r)
+			Modal.success({title:'회원가입 완료', content:'회원가입이 완료되었습니다.', onOk(){window.location.href='/Login'}})
 		})
 		.catch(e => {
-			console.log(e)
+			console.log(e.response);
+			if(e.response.status === 301){
+				console.log("중복회원")
+			}
 		})
-		Modal.success({title:'회원가입 완료', content:'회원가입이 완료되었습니다.', onOk(){window.location.href='/Login'}})
       }
     });
   }
@@ -189,19 +186,9 @@ class RegistrationForm extends React.Component {
           )}
         >
           {getFieldDecorator('nickname', {
-            rules: [{ required: true, message: '닉네임을 입력하세요!', whitespace: true }],
+            rules: [{ required: true, message: '이름을 입력하세요!', whitespace: true }],
           })(
             <Input />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label='우편번호'
-        >
-          {getFieldDecorator('residance', {
-            rules: [{ required: true, message: '우편번호를 입력하세요!', whitespace: true }],
-          })(
-            <Input value={this.state.postNumber}/>
           )}
         </FormItem>
         <FormItem 
@@ -213,7 +200,7 @@ class RegistrationForm extends React.Component {
             rules: [{required: true, message: '거주지를 선택하세요!' }],
           })(
             <div onClick={this.callPost}>
-                  <Input prefix='클릭 해주세요' value={this.state.fulladdress}></Input>
+                  <Input placeholder='클릭 해주세요' value={this.state.fulladdress}></Input>
                  <div style={{position:'absolute', zIndex:100}}>
                   {
                     this.state.clicked ?
