@@ -126,10 +126,10 @@ class Admin extends Component {
       <div>
         <Row>
           <Col span={20} offset={2}>
-            <div style={{backgroundColor:'whiteSmoke'}}>
+            <div style={{backgroundColor:'whiteSmoke', marginTop:'20px', marginBottom:'20px'}}>
               <Subtitle title='콘솔 별 판매량'/>
               <Row>
-                <Col span={12} offset={4}>
+                <Col span={12} offset={5}>
                   <BarChart width={730} height={250} data={this.state.chartData}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
@@ -141,53 +141,7 @@ class Admin extends Component {
                   </BarChart>
                 </Col>
               </Row>
-              <Row style={{paddingTop:'20px'}}>
-                <Col span={12} offset={4}>
-                  <LineChart width={730} height={250} data={chartData2}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Line type="monotone" dataKey="PS" stroke="#8884d8" />
-                      <Line type="monotone" dataKey="Nintendo" stroke="#82ca9d" />
-                      <Line type="monotone" dataKey="XBOX" stroke="#FFA500" />
-                  </LineChart>
-                 </Col>
-                </Row>
             </div>
-              <div style={{backgroundColor:'whiteSmoke'}}>
-                <Subtitle title='최근 판매 내역'/>
-                <Row style={{marginTop:'20px'}}>
-                  <Col span={20} offset={2}>
-                    <Table dataSource={this.state.users}>
-                      <Column
-                          title='Name'
-                          dataIndex='nickname'
-                          key='nickname'
-                          render={text => <a href="javascript:;">{text}</a>}
-                      />
-                      <Column
-                          title='Address'
-                          dataIndex='address'
-                          key='address'
-                      />
-                      <Column
-                          title='Action'
-                          key='action'
-                          render={(text, record) => (
-                            <span>
-                              <Link to={{pathname: `/OrderedList/${record._id}`}}>주문내역</Link>
-                              <Divider type="vertical" />
-                              <a href="javascript:;" onClick={(e) => this.onClickDelete(e, record)}>Delete</a>
-                              <Divider type="vertical" />
-                          </span>)}
-                      />
-                    </Table>
-                  </Col>
-                </Row>
-              </div>
               <div style={{backgroundColor:'whiteSmoke'}}>
                 <Subtitle title='회원 관리'/>
                 <Row style={{marginTop:'20px'}}>
