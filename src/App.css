@@ -8,7 +8,7 @@
 }
 
 div{
- font-family: 'Nanum Gothic', sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 .App-header {
@@ -26,7 +26,6 @@ div{
   font-size: large;
 }
 
-
 .ant-carousel .slick-slide {
   text-align: center;
   height: 100%;
@@ -39,6 +38,28 @@ div{
   color: #fff;
 }
 
+@media (min-width: 981px) {
+  .fancy-title h2 {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 0;
+  }
+  .fancy-title h2:before, .fancy-title h2:after {
+  position: absolute;
+  top: 49%;
+  overflow: hidden;
+  width: 50%;
+  height: 1px;
+  content: '\a0';
+  background-color: #EB2000;
+  }
+  .fancy-title h2:before {
+  margin-left: -50%;
+  text-align: right;
+  }
+ }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
