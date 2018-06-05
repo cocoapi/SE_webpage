@@ -13,6 +13,10 @@ class Cart extends Component {
     };
   }
 
+  componentDidMount(){
+    window.scrollTo(0, 0)
+  }
+  
   componentWillReceiveProps(nextProps){
 	this.setState({dataSource: nextProps.Cart });
   }

@@ -46,6 +46,7 @@ class Consoles extends Component {
   // }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     if(this.state.catalog == undefined){
       axios.get(`http://mjsong.iptime.org:3001/products/list/${this.state.consoleName}/all/1/release_date/-1`) // 특정 catalog에 대해 발매일에 대해 내림차순
         .then((res) => {

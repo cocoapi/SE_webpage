@@ -65,6 +65,11 @@ class Buypage extends Component {
         }
         this.clickOrder= this.clickOrder.bind(this);
     }
+
+    componentDidMount(){
+        window.scrollTo(0, 0)
+    }
+
     componentWillReceiveProps(nextProps){
         nextProps.user.logged_in ? this.setState({apporove: true}) : null
     }
@@ -159,11 +164,8 @@ class Buypage extends Component {
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>연락처</div></Col>
                         <Col span={13}>
                             <InputGroup size="small">
-                                <Col span={2}>
-                                    <Input defaultValue={this.state.user.phone.slice(0, 3)} />
-                                </Col>
-                                <Col span={4}>
-                                    <Input defaultValue={this.state.user.phone.slice(4, 12)}/>
+                                <Col span={6}>
+                                    <Input defaultValue={this.state.user.phone} />
                                 </Col>
                             </InputGroup>
                         </Col>
@@ -174,17 +176,14 @@ class Buypage extends Component {
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>이름</div></Col>
-                        <Col span={3}><Input size='small' defaultValue={this.props.user.nickname}/></Col>
+                        <Col span={3}><Input size='small' defaultValue={this.state.user.nickname}/></Col>
                     </Row>
                     <Row style={smallContent}>
                         <Col span={3}><div style={{textAlign:'center', paddingTop:'2px'}}>연락처</div></Col>
                         <Col span={13}>
                             <InputGroup size="small">
-                                <Col span={2}>
-                                    <Input defaultValue={this.state.user.phone.slice(0, 3)} />
-                                </Col>
-                                <Col span={4}>
-                                    <Input defaultValue={this.state.user.phone.slice(4, 12)} />
+                                <Col span={6}>
+                                    <Input defaultValue={this.state.user.phone} />
                                 </Col>
                             </InputGroup>
                         </Col>

@@ -51,6 +51,7 @@ class Front extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     axios.get('http://mjsong.iptime.org:3001/products/list/all/all/1/release_date/-1') // 출시일에 대해 내림차순
       .then((res) => {
         console.log(res);
