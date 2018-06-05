@@ -32,7 +32,7 @@ class Navi extends Component {
   render() {
     return (
 		<div style={{width:'100%', height:'230px',  display:'flex', flexDirection:'column', backgroundColor:'#4d6c8b'}}>
-			<div style={{width:'100%', height:'20px', padding:'0px 8px', background:'white', zIndex:'5', position:'fixed', top:'0px', textAlign:'right', backgroundColor:'whiteSmoke'}}>
+			<div style={{width:'100%', height:'20px', padding:'0px 8px', background:'#4d6c8b', zIndex:'5', position:'fixed', top:'0px', textAlign:'right'}}>
 				{
 					this.state.user.logged_in ?
 					<Link style={{color:'white'}} to='/' onClick={ () => this.props.dispatch(logout()) }> 
@@ -62,15 +62,15 @@ class Navi extends Component {
 				</div>
 				:
 				<div style={{width: '100%', height:'50px', display:'flex', flexDirection:'row', position:'fixed', top:'20px',
-				zIndex:'5', fontSize:'15px', backgroundColor:'whiteSmoke'}}>
+				zIndex:'5', fontSize:'15px', backgroundColor:'#4d6c8b'}}>
 					<div style={{width:'33%', margin:'4px'}}>
-						<Link to={{ pathname: '/PlayStation', state: { consoleName: 'PlayStation' }}} style={{color:'black'}}> PS4 </Link>
+						<Link to={{ pathname: '/PlayStation', state: { consoleName: 'PlayStation' }}} style={{color:'white'}}> PS4 </Link>
 					</div>
 					<div style={{width:'33%', margin:'4px'}}>
-						<Link to={{ pathname: '/Nintendo', state: { consoleName: 'Nintendo' }}} style={{color:'black'}}> Nintendo </Link>
+						<Link to={{ pathname: '/Nintendo', state: { consoleName: 'Nintendo' }}} style={{color:'white'}}> Nintendo </Link>
 					</div>
 					<div style={{width:'33%', margin:'4px'}}>
-						<Link to={{ pathname: '/XBOX', state: { consoleName: 'XBOX' }}} style={{color:'black'}}> XBOX </Link>
+						<Link to={{ pathname: '/XBOX', state: { consoleName: 'XBOX' }}} style={{color:'white'}}> XBOX </Link>
 					</div>
 				</div>
 			}

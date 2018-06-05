@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Button, Input, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { updateCart, trunkCart } from '../actions'
 const { Column } = Table;
 
@@ -9,6 +10,7 @@ class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
+		user: props.user,
 		dataSource: props.Cart,
     };
   }
@@ -31,6 +33,14 @@ class Cart extends Component {
 
   truncCart = () => {
 	this.props.trunc();
+	if(this.state.user.email !== undefined){
+		axios.patch('http://mjsong.iptime.org:3001/carts',{
+					email: this.state.user.email,
+					order_list: this.props.Cart,
+				})
+		.then(r => {})
+		.catch(e => {})
+	}
   }
   
   render() {
@@ -106,6 +116,7 @@ class Cart extends Component {
 const mapStatetoProps = (state) => {
 	return{
 		Cart: state.Cart.Cart,
+		user: state.currentUser.user,
 	}
 }
 
