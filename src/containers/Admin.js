@@ -144,7 +144,7 @@ class Admin extends Component {
       <div>
         <Row>
           <Col span={20} offset={2}>
-            <div style={{backgroundColor:'whiteSmoke'}}>
+            <div style={{backgroundColor:'whiteSmoke', marginTop:'20px', marginBottom:'20px'}}>
               <Subtitle title='콘솔 별 판매량'/>
               <Row>
                 <Col span={12} offset={5}>
@@ -160,6 +160,7 @@ class Admin extends Component {
                 </Col>
               </Row>
             </div>
+<<<<<<< HEAD
             <div style={{backgroundColor:'whiteSmoke'}}>
               <Subtitle title='총 누적 판매량'/>
               <Row>
@@ -175,6 +176,8 @@ class Admin extends Component {
                 </Col>
               </Row>
             </div>
+=======
+>>>>>>> bb8ddf162aefdcca00d4168f6a244eb8a2e29861
               <div style={{backgroundColor:'whiteSmoke'}}>
                 <Subtitle title='회원 관리'/>
                 <Row style={{marginTop:'20px'}}>
