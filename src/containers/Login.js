@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import LoginForm from '../components/LoginForm';
 
 class Login extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   render() {
     return (
       <div style={{ height: '800px', display: 'flex', flexDirection: 'column' }}>

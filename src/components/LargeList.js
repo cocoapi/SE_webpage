@@ -61,6 +61,7 @@ class LargeList extends Component {
   }
 
   onChangePage = (page, pageSize) => {
+            
             axios.get(`http://mjsong.iptime.org:3001/products/list/${this.props.consoleName}/${this.props.catalog.toLowerCase()}/${page}`+this.state.value)
             .then((res) => {
               console.log(res);
@@ -78,8 +79,8 @@ class LargeList extends Component {
         <Row>
           <Col span={6} offset={18}>
             <RadioGroup onChange={this.onChangeRadio} value={this.state.value}>
-              <Radio value='/price/1'>낮은 가격순</Radio>
-              <Radio value='/price/-1'>높은 가격순</Radio>
+              <Radio value='/price/-1'>낮은 가격순</Radio>
+              <Radio value='/price/1'>높은 가격순</Radio>
               <Radio value='/release_date/-1'>최근 등록순</Radio>
             </RadioGroup>       
           </Col>

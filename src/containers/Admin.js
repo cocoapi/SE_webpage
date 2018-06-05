@@ -41,7 +41,7 @@ class Admin extends Component {
       products: [],
       chartData:[],
       users:[],
-      recentPurchase:[],
+      addedPurch:[],
       deleteUser: false
     };
   }
@@ -79,19 +79,37 @@ class Admin extends Component {
            console.log(e);
          }) // 회원정보 전체 GET
         
-    // axios.get('http://mjsong.iptime.org:3001/purchHists/sell') // 최근 5일동안 판매량
-    //      .then( res => {
-    //         console.log(res.data)
-    //      })
-    //      .catch( e => {
-    //         console.log(e);
-    //      })
+    axios.get('http://mjsong.iptime.org:3001/purchHists/sell') // 최근 5일동안 판매량
+         .then( res => {
+            var today = new Date();
+            var dd = today.getDate() - 5;
+            var mm = today.getMonth()+1;
+            today = mm + '-' + dd
+
+            var data = [];
+            for(var i=5; i>0; i--){
+              dd = dd + 1;
+              today ='0' +  mm + '-' + '0' +dd
+
+              data.push({
+                date: today,
+                value: res.data[0]
+              })   
+              }
+              console.log(data);
+
+              this.setState({addedPurch: data})
+            
+         })
+         .catch( e => {
+            console.log(e);
+         })
 
     axios.get('http://mjsong.iptime.org:3001/products/sell') // 콘솔 별 판매량
          .then(res => {
            var data = [];
            data.push({
-             name: 'XOBX',
+             name: 'XBOX',
              Hardware: res.data.XBOX.hardware,
              Title: res.data.XBOX.title
            })
@@ -126,10 +144,10 @@ class Admin extends Component {
       <div>
         <Row>
           <Col span={20} offset={2}>
-            <div style={{backgroundColor:'whiteSmoke'}}>
+            <div style={{backgroundColor:'whiteSmoke', marginTop:'20px', marginBottom:'20px'}}>
               <Subtitle title='콘솔 별 판매량'/>
               <Row>
-                <Col span={12} offset={4}>
+                <Col span={12} offset={5}>
                   <BarChart width={730} height={250} data={this.state.chartData}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
@@ -141,53 +159,7 @@ class Admin extends Component {
                   </BarChart>
                 </Col>
               </Row>
-              <Row style={{paddingTop:'20px'}}>
-                <Col span={12} offset={4}>
-                  <LineChart width={730} height={250} data={chartData2}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis />
-                      <Tooltip />
-                      <Legend />
-                      <Line type="monotone" dataKey="PS" stroke="#8884d8" />
-                      <Line type="monotone" dataKey="Nintendo" stroke="#82ca9d" />
-                      <Line type="monotone" dataKey="XBOX" stroke="#FFA500" />
-                  </LineChart>
-                 </Col>
-                </Row>
             </div>
-              <div style={{backgroundColor:'whiteSmoke'}}>
-                <Subtitle title='최근 판매 내역'/>
-                <Row style={{marginTop:'20px'}}>
-                  <Col span={20} offset={2}>
-                    <Table dataSource={this.state.users}>
-                      <Column
-                          title='Name'
-                          dataIndex='nickname'
-                          key='nickname'
-                          render={text => <a href="javascript:;">{text}</a>}
-                      />
-                      <Column
-                          title='Address'
-                          dataIndex='address'
-                          key='address'
-                      />
-                      <Column
-                          title='Action'
-                          key='action'
-                          render={(text, record) => (
-                            <span>
-                              <Link to={{pathname: `/OrderedList/${record._id}`}}>주문내역</Link>
-                              <Divider type="vertical" />
-                              <a href="javascript:;" onClick={(e) => this.onClickDelete(e, record)}>Delete</a>
-                              <Divider type="vertical" />
-                          </span>)}
-                      />
-                    </Table>
-                  </Col>
-                </Row>
-              </div>
               <div style={{backgroundColor:'whiteSmoke'}}>
                 <Subtitle title='회원 관리'/>
                 <Row style={{marginTop:'20px'}}>
@@ -209,7 +181,7 @@ class Admin extends Component {
                           key='action'
                           render={(text, record) => (
                             <span>
-                              <Link to={{pathname: `/OrderedList/${record._id}`}}>주문내역</Link>
+                              <Link to={{pathname: `/OrderedList/${record.email}`}}>주문내역</Link>
                               <Divider type="vertical" />
                               <a href="javascript:;" onClick={(e) => this.onClickDelete(e, record)}>Delete</a>
                               <Divider type="vertical" />
